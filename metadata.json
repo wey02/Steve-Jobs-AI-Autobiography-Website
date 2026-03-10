@@ -1,0 +1,5 @@
+{
+  "name": "Steve Jobs AI Autobiography",
+  "description": "An interactive digital biography platform exploring the life, philosophy, and legacy of Steve Jobs through AI, multimedia, and cinematic design.",
+  "requestFramePermissions": ["microphone"]
+}

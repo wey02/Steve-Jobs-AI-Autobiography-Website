@@ -1,0 +1,66 @@
+[
+  {
+    "id": 1,
+    "year": "1976",
+    "title": "Apple Founded",
+    "description": "Steve Jobs, Steve Wozniak, and Ronald Wayne found Apple Computer in the Jobs family garage in Los Altos, California.",
+    "image": "https://picsum.photos/seed/apple-garage/800/600",
+    "topic": "Entrepreneurship"
+  },
+  {
+    "id": 2,
+    "year": "1984",
+    "title": "Macintosh Launch",
+    "description": "The Macintosh is introduced with the famous '1984' Super Bowl commercial, bringing the graphical user interface to the masses.",
+    "image": "https://picsum.photos/seed/macintosh/800/600",
+    "topic": "Innovation"
+  },
+  {
+    "id": 3,
+    "year": "1985",
+    "title": "Departure from Apple",
+    "description": "Following a power struggle with CEO John Sculley, Jobs is stripped of his duties and resigns from Apple.",
+    "image": "https://picsum.photos/seed/steve-jobs-1985/800/600",
+    "topic": "Life Challenges"
+  },
+  {
+    "id": 4,
+    "year": "1985",
+    "title": "NeXT & Pixar",
+    "description": "Jobs founds NeXT Computer and acquires the Graphics Group from Lucasfilm, which later becomes Pixar Animation Studios.",
+    "image": "https://picsum.photos/seed/pixar/800/600",
+    "topic": "Entrepreneurship"
+  },
+  {
+    "id": 5,
+    "year": "1997",
+    "title": "Return to Apple",
+    "description": "Apple acquires NeXT, and Jobs returns to the company he co-founded, eventually becoming 'iCEO'.",
+    "image": "https://picsum.photos/seed/apple-return/800/600",
+    "topic": "Leadership"
+  },
+  {
+    "id": 6,
+    "year": "2001",
+    "title": "iPod & iTunes",
+    "description": "Apple introduces the iPod, revolutionizing the music industry and beginning the company's transformation into a digital powerhouse.",
+    "image": "https://picsum.photos/seed/ipod/800/600",
+    "topic": "Product Design"
+  },
+  {
+    "id": 7,
+    "year": "2007",
+    "title": "iPhone Launch",
+    "description": "Jobs unveils the iPhone, describing it as 'a revolutionary mobile phone, a widescreen iPod with touch controls, and a breakthrough Internet communications device.'",
+    "image": "https://picsum.photos/seed/iphone-launch/800/600",
+    "topic": "Innovation"
+  },
+  {
+    "id": 8,
+    "year": "2011",
+    "title": "Legacy",
+    "description": "Steve Jobs passes away, leaving behind a legacy that transformed the way we live, work, and communicate.",
+    "image": "https://picsum.photos/seed/steve-jobs-legacy/800/600",
+    "topic": "Life Challenges"
+  }
+]

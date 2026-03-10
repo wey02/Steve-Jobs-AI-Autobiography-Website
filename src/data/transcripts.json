@@ -1,0 +1,42 @@
+[
+  {
+    "id": "doc-1",
+    "title": "The Visionary Mind",
+    "description": "An exploration of Steve Jobs' early years and the founding of Apple.",
+    "duration": "5:00",
+    "thumbnail": "https://picsum.photos/seed/jobs-visionary/400/225",
+    "transcript": "Steve Jobs was born in 1955. He grew up in the Silicon Valley area. In 1976, he and Steve Wozniak started Apple in a garage. They wanted to make computers accessible to everyone. The Apple II was a huge success..."
+  },
+  {
+    "id": "doc-2",
+    "title": "The Wilderness Years",
+    "description": "Steve's departure from Apple, the founding of NeXT, and the rise of Pixar.",
+    "duration": "5:00",
+    "thumbnail": "https://picsum.photos/seed/jobs-wilderness/400/225",
+    "transcript": "In 1985, Jobs was forced out of Apple. He didn't give up. He started NeXT, a high-end workstation company. He also bought Pixar. Pixar went on to create Toy Story, the first computer-animated feature film..."
+  },
+  {
+    "id": "doc-3",
+    "title": "The Great Return",
+    "description": "The story of Apple's near-bankruptcy and Steve's triumphant return.",
+    "duration": "5:00",
+    "thumbnail": "https://picsum.photos/seed/jobs-return/400/225",
+    "transcript": "By 1996, Apple was in trouble. They bought NeXT for its operating system. Jobs returned as an advisor, then interim CEO. He simplified the product line and introduced the iMac..."
+  },
+  {
+    "id": "doc-4",
+    "title": "The Mobile Revolution",
+    "description": "How the iPod and iPhone changed the world forever.",
+    "duration": "5:00",
+    "thumbnail": "https://picsum.photos/seed/jobs-mobile/400/225",
+    "transcript": "In 2001, Apple launched the iPod. It changed how we listen to music. Then in 2007, the iPhone was born. It wasn't just a phone; it was a computer in your pocket..."
+  },
+  {
+    "id": "doc-5",
+    "title": "The Final Act",
+    "description": "Steve's later years, his legacy, and the future of Apple.",
+    "duration": "5:00",
+    "thumbnail": "https://picsum.photos/seed/jobs-final/400/225",
+    "transcript": "Steve Jobs' final years were marked by incredible product launches like the iPad. He focused on the intersection of technology and the liberal arts. His legacy continues to inspire millions..."
+  }
+]
