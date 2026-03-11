@@ -9,94 +9,101 @@ export const Hero: React.FC = () => {
   const { theme } = useTheme();
 
   return (
-    <section className={`relative h-screen w-full flex items-center justify-center overflow-hidden transition-colors duration-500 ${theme === 'dark' ? 'bg-black' : 'bg-white'}`}>
-      {/* Background Image with Parallax effect */}
+    <section className={`relative min-h-screen w-full flex flex-col md:flex-row items-center transition-colors duration-500 overflow-hidden ${theme === 'dark' ? 'bg-black' : 'bg-white'}`}>
+      {/* Scroll Progress Indicator */}
       <motion.div 
-        initial={{ scale: 1.1, opacity: 0 }}
-        animate={{ scale: 1, opacity: 0.4 }}
-        transition={{ duration: 2, ease: "easeOut" }}
-        className="absolute inset-0 z-0"
+        className="fixed top-0 left-0 right-0 h-1 z-50 origin-left bg-current opacity-20"
+        style={{ scaleX: useScrollProgress() }}
+      />
+
+      {/* Left Side: Iconic Image with Creative Mask */}
+      <motion.div 
+        initial={{ x: -100, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
+        className="w-full md:w-1/2 h-[60vh] md:h-screen relative group"
       >
+        <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
+          <motion.div 
+            animate={{ 
+              scale: [1, 1.05, 1],
+              rotate: [0, 2, 0]
+            }}
+            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+            className={`w-3/4 h-3/4 border transition-colors duration-500 ${theme === 'dark' ? 'border-white/10' : 'border-black/10'}`}
+          />
+        </div>
         <img 
-          src="https://images.unsplash.com/photo-1491933382434-500287f9b54b?auto=format&fit=crop&q=80&w=1920" 
-          alt="Apple Garage Background" 
-          className="w-full h-full object-cover"
+          src="https://upload.wikimedia.org/wikipedia/commons/d/dc/Steve_Jobs_Headshot_2010-edit.jpg" 
+          alt="Steve Jobs" 
+          className="w-full h-full object-cover grayscale brightness-75 group-hover:brightness-100 group-hover:grayscale-0 transition-all duration-1000 ease-in-out"
           referrerPolicy="no-referrer"
         />
-        <div className={`absolute inset-0 transition-colors duration-500 ${theme === 'dark' ? 'bg-gradient-to-b from-black/60 via-black/40 to-black' : 'bg-gradient-to-b from-white/60 via-white/40 to-white'}`}></div>
+        <div className={`absolute inset-0 transition-colors duration-500 ${theme === 'dark' ? 'bg-black/40 group-hover:bg-black/10' : 'bg-white/20 group-hover:bg-white/0'}`}></div>
       </motion.div>
 
-      {/* Content */}
-      <div className="relative z-10 container mx-auto px-6 flex flex-col items-center text-center">
+      {/* Right Side: Headline */}
+      <div className="w-full md:w-1/2 px-8 md:px-20 py-16 md:py-0 flex flex-col justify-center relative z-20">
         <motion.div
-          initial={{ y: 50, opacity: 0 }}
+          initial={{ y: 40, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.5, duration: 1 }}
-          className="mb-8"
+          transition={{ delay: 0.5, duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
         >
-          <img 
-            src="https://upload.wikimedia.org/wikipedia/commons/d/dc/Steve_Jobs_Headshot_2010-edit.jpg" 
-            alt="Steve Jobs" 
-            className={`w-48 h-48 md:w-64 md:h-64 rounded-full border-2 object-cover shadow-2xl grayscale hover:grayscale-0 transition-all duration-700 ${theme === 'dark' ? 'border-white/20' : 'border-black/10'}`}
-            referrerPolicy="no-referrer"
-          />
-        </motion.div>
-
-        <motion.h1 
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.8, duration: 0.8 }}
-          className={`text-5xl md:text-7xl font-light tracking-tighter mb-4 transition-colors duration-500 ${theme === 'dark' ? 'text-white' : 'text-black'}`}
-        >
-          Steve Jobs <span className={theme === 'dark' ? 'text-white/50' : 'text-black/50'}>—</span> AI Autobiography
-        </motion.h1>
-
-        <motion.p 
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 1, duration: 0.8 }}
-          className={`text-lg md:text-xl max-w-2xl mb-12 font-light leading-relaxed transition-colors duration-500 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}
-        >
-          Explore the life, ideas, and philosophy of one of the world's most influential innovators.
-        </motion.p>
-
-        <motion.div 
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 1.2, duration: 0.8 }}
-          className="flex flex-col sm:flex-row gap-4"
-        >
-          <button 
-            onClick={() => {
-              playSFX('click');
-              document.getElementById('journey')?.scrollIntoView({ behavior: 'smooth' });
-            }}
-            className={`group flex items-center gap-2 px-8 py-4 rounded-full font-medium transition-all duration-300 ${theme === 'dark' ? 'bg-white text-black hover:bg-gray-200' : 'bg-black text-white hover:bg-gray-800'}`}
+          <div className={`mb-6 text-[10px] font-mono uppercase tracking-[0.6em] transition-colors duration-500 ${theme === 'dark' ? 'text-white/30' : 'text-black/30'}`}>
+            Legacy of a Visionary
+          </div>
+          <h1 className={`text-6xl lg:text-9xl font-light tracking-tighter leading-[0.85] mb-12 transition-colors duration-500 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
+            The <span className="font-medium italic">Visionary</span> <br />
+            <span className="font-medium">Who <motion.span animate={{ opacity: [0.7, 1, 0.7] }} transition={{ duration: 4, repeat: Infinity }}>Changed</motion.span></span> <br />
+            the Way <br />
+            <span className={`italic font-bold ${theme === 'dark' ? 'text-white' : 'text-black'} underline decoration-current/20 underline-offset-[12px]`}>WE LIVE</span>
+          </h1>
+          
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.5, duration: 1 }}
           >
-            Explore the Journey
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </button>
-          <button 
-            onClick={() => {
-              playSFX('click');
-              document.getElementById('mentor')?.scrollIntoView({ behavior: 'smooth' });
-            }}
-            className={`group flex items-center gap-2 px-8 py-4 bg-transparent border rounded-full font-medium transition-all duration-300 ${theme === 'dark' ? 'border-white/30 text-white hover:bg-white/10' : 'border-black/30 text-black hover:bg-black/5'}`}
-          >
-            Ask the AI Mentor
-            <MessageSquare className="w-4 h-4" />
-          </button>
+            <button 
+              onClick={() => {
+                playSFX('click');
+                document.getElementById('animated-question')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className={`group relative inline-flex items-center gap-6 text-xs font-mono uppercase tracking-[0.4em] transition-all ${theme === 'dark' ? 'text-white/60 hover:text-white' : 'text-black/60 hover:text-black'}`}
+            >
+              <span className="relative z-10">Begin the Experience</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-3 transition-transform duration-500" />
+              <div className={`absolute -bottom-2 left-0 w-0 h-px transition-all duration-500 group-hover:w-full ${theme === 'dark' ? 'bg-white/40' : 'bg-black/40'}`}></div>
+            </button>
+          </motion.div>
         </motion.div>
       </div>
 
       {/* Scroll Indicator */}
       <motion.div 
-        animate={{ y: [0, 10, 0] }}
-        transition={{ repeat: Infinity, duration: 2 }}
-        className={`absolute bottom-10 left-1/2 -translate-x-1/2 ${theme === 'dark' ? 'text-white/30' : 'text-black/30'}`}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2, duration: 1 }}
+        className={`absolute bottom-12 right-12 hidden md:flex items-center gap-4 ${theme === 'dark' ? 'text-white/20' : 'text-black/20'}`}
       >
-        <div className={`w-px h-12 bg-gradient-to-b to-transparent transition-colors duration-500 ${theme === 'dark' ? 'from-white/50' : 'from-black/50'}`}></div>
+        <span className="text-[10px] font-mono uppercase tracking-widest rotate-90 origin-right translate-y-8">Scroll</span>
+        <div className={`w-px h-16 bg-gradient-to-b to-transparent transition-colors duration-500 ${theme === 'dark' ? 'from-white/40' : 'from-black/40'}`}></div>
       </motion.div>
     </section>
   );
+};
+
+// Helper hook for scroll progress
+const useScrollProgress = () => {
+  const [progress, setProgress] = React.useState(0);
+  React.useEffect(() => {
+    const handleScroll = () => {
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const currentScroll = window.scrollY;
+      setProgress(currentScroll / totalHeight);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+  return progress;
 };

@@ -11,7 +11,7 @@ export const Documentary: React.FC = () => {
   const [selectedDoc, setSelectedDoc] = useState<typeof documentaries[0] | null>(null);
 
   return (
-    <section className={`py-24 transition-colors duration-500 ${theme === 'dark' ? 'bg-black text-white' : 'bg-white text-black'}`}>
+    <section id="documentary" className={`py-24 transition-colors duration-500 ${theme === 'dark' ? 'bg-black text-white' : 'bg-white text-black'}`}>
       <div className="container mx-auto px-6">
         <div className="mb-16">
           <motion.h2 
