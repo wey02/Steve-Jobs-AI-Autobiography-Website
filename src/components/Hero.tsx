@@ -1,12 +1,10 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { useAudio } from './AudioProvider';
-import { useTheme } from './ThemeProvider';
-import { ArrowRight, MessageSquare } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 export const Hero: React.FC = () => {
   const { playSFX } = useAudio();
-  const { theme } = useTheme();
 
   return (
     <section className="relative min-h-screen w-full flex items-center transition-colors duration-500 overflow-hidden bg-gradient-to-br from-black via-zinc-900 to-white py-20 md:py-0">
@@ -27,12 +25,16 @@ export const Hero: React.FC = () => {
             <div className="mb-6 text-[10px] font-mono uppercase tracking-[0.6em] text-white/50">
               Legacy of a Visionary
             </div>
-            <h1 className="text-5xl sm:text-6xl lg:text-8xl font-light tracking-tighter leading-[0.85] mb-12 text-white">
+            <h1 className="text-5xl sm:text-6xl lg:text-8xl font-light tracking-tighter leading-[0.85] mb-8 text-white">
               The <span className="font-medium italic">Visionary</span> <br />
               who <span className="font-medium">changed</span> <br />
               the way <br />
               <span className="italic font-bold underline decoration-white/20 underline-offset-[12px]">WE LIVE</span>
             </h1>
+
+            <p className="text-lg md:text-xl font-light text-white/60 mb-12 max-w-lg leading-relaxed tracking-wide">
+              Explore the life of Steve Jobs through an AI-powered biographical experience.
+            </p>
             
             <motion.div
               initial={{ opacity: 0, y: 20 }}

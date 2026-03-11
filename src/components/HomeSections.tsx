@@ -2,10 +2,12 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { useTheme } from './ThemeProvider';
 import { useAudio } from './AudioProvider';
-import { ArrowRight, Sparkles, Zap, Globe, Eye, Lightbulb, Minimize2, History } from 'lucide-react';
+import { ArrowRight, Sparkles, Zap, Globe, Eye, Lightbulb, Minimize2, History, MessageSquare } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export const AnimatedQuestion: React.FC = () => {
+  const { theme } = useTheme();
+  
   return (
     <section id="animated-question" className="relative min-h-screen flex items-center justify-center text-center overflow-hidden bg-black">
       {/* Immersive Background */}
@@ -52,6 +54,8 @@ export const AnimatedQuestion: React.FC = () => {
 };
 
 export const LegacyIntro: React.FC = () => {
+  const { theme } = useTheme();
+  
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
       {/* Subtle Parallax Visuals with Radial Mask */}
@@ -165,6 +169,7 @@ export const PhilosophySection: React.FC = () => {
 };
 
 export const ThemeSection: React.FC = () => {
+  const { theme } = useTheme();
   const cards = [
     {
       icon: Eye,
@@ -214,8 +219,8 @@ export const ThemeSection: React.FC = () => {
             transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
           >
             <h3 className="text-xs font-mono uppercase tracking-[0.4em] mb-8 text-white/40">The Theme</h3>
-            <h2 className="text-3xl md:text-5xl font-light leading-tight tracking-tight text-white">
-              The <span className="italic font-medium">Autobiography of Steve Jobs</span> invites you to <span className="font-medium underline decoration-white/20 underline-offset-8">EXPLORE</span> the life, mindset, and defining moments of a man who challenged conventions and helped shape the digital age.
+            <h2 className="text-2xl md:text-4xl font-light leading-relaxed tracking-tight text-white max-w-4xl mx-auto">
+              This digital experience presents his journey through an AI-powered biographical experience, allowing visitors to explore the ideas, decisions, and milestones that shaped one of the most influential innovators of the modern era.
             </h2>
           </motion.div>
         </div>
@@ -326,18 +331,30 @@ export const CTASection: React.FC = () => {
           viewport={{ once: true }}
           transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
         >
-          <h2 className={`text-4xl md:text-6xl font-light tracking-tight mb-12 transition-colors duration-500 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
+            <h2 className={`text-4xl md:text-6xl font-light tracking-tight mb-12 transition-colors duration-500 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
             Step inside the story—and discover how <br />
             one visionary helped <span className="font-medium italic">redefine the future</span>.
           </h2>
-          <Link 
-            to="/journey"
-            onClick={() => playSFX('click')}
-            className={`inline-flex items-center gap-4 px-12 py-6 rounded-full text-lg font-medium transition-all duration-500 ${theme === 'dark' ? 'bg-white text-black hover:bg-gray-200 shadow-2xl shadow-white/10' : 'bg-black text-white hover:bg-gray-800 shadow-2xl shadow-black/10'}`}
-          >
-            Explore his journey
-            <ArrowRight className="w-5 h-5" />
-          </Link>
+          
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+            <Link 
+              to="/journey"
+              onClick={() => playSFX('click')}
+              className={`inline-flex items-center gap-4 px-12 py-6 rounded-full text-lg font-medium transition-all duration-500 ${theme === 'dark' ? 'bg-white text-black hover:bg-gray-200 shadow-2xl shadow-white/10' : 'bg-black text-white hover:bg-gray-800 shadow-2xl shadow-black/10'}`}
+            >
+              Explore his journey
+              <ArrowRight className="w-5 h-5" />
+            </Link>
+
+            <Link 
+              to="/talk-to-steve"
+              onClick={() => playSFX('click')}
+              className={`inline-flex items-center gap-4 px-12 py-6 rounded-full text-lg font-medium transition-all duration-500 border-2 ${theme === 'dark' ? 'border-white text-white hover:bg-white hover:text-black' : 'border-black text-black hover:bg-black hover:text-white'}`}
+            >
+              Talk to Steve Jobs
+              <MessageSquare className="w-5 h-5" />
+            </Link>
+          </div>
 
           {/* Signature Reveal */}
           <motion.div
