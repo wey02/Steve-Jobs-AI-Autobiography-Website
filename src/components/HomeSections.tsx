@@ -2,29 +2,28 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { useTheme } from './ThemeProvider';
 import { useAudio } from './AudioProvider';
-import { ArrowRight, Sparkles, Zap, Globe } from 'lucide-react';
+import { ArrowRight, Sparkles, Zap, Globe, Eye, Lightbulb, Minimize2, History } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export const AnimatedQuestion: React.FC = () => {
-  const { theme } = useTheme();
-  
   return (
-    <section id="animated-question" className={`relative min-h-screen flex items-center justify-center text-center overflow-hidden transition-colors duration-500 ${theme === 'dark' ? 'bg-black' : 'bg-white'}`}>
+    <section id="animated-question" className="relative min-h-screen flex items-center justify-center text-center overflow-hidden bg-black">
       {/* Immersive Background */}
       <div className="absolute inset-0 z-0">
-        <div className={`absolute inset-0 opacity-30 transition-colors duration-500 ${theme === 'dark' ? 'bg-gradient-to-tr from-blue-900/20 via-black to-purple-900/20' : 'bg-gradient-to-tr from-blue-100/40 via-white to-purple-100/40'}`}></div>
+        <div className="absolute inset-0 opacity-40 bg-gradient-to-tr from-zinc-900 via-black to-zinc-900"></div>
         <motion.div 
           animate={{ 
-            scale: [1, 1.1, 1],
-            rotate: [0, 5, 0]
+            scale: [1, 1.2, 1],
+            opacity: [0.05, 0.1, 0.05]
           }}
           transition={{ 
-            duration: 20, 
+            duration: 15, 
             repeat: Infinity,
-            ease: "linear" 
+            ease: "easeInOut" 
           }}
-          className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200%] md:w-[150%] h-[200%] md:h-[150%] opacity-10 blur-3xl rounded-full ${theme === 'dark' ? 'bg-blue-500' : 'bg-blue-300'}`}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] blur-[160px] rounded-full bg-blue-500"
         ></motion.div>
+        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-[0.03] pointer-events-none"></div>
       </div>
 
       <div className="container relative z-10 mx-auto px-6 py-20">
@@ -33,9 +32,9 @@ export const AnimatedQuestion: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
-          className={`text-3xl sm:text-4xl md:text-7xl font-light leading-tight max-w-5xl mx-auto tracking-tighter transition-colors duration-500 ${theme === 'dark' ? 'text-white' : 'text-black'}`}
+          className="text-3xl sm:text-4xl md:text-7xl font-light leading-tight max-w-5xl mx-auto tracking-tighter text-white"
         >
-          "What if one person’s <motion.span initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ delay: 1, duration: 1 }} className="italic font-medium">ideas</motion.span> could <motion.span initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ delay: 1.2, duration: 1 }} className="italic font-medium">change</motion.span> the way the world <span className="font-medium underline decoration-current/20 underline-offset-8">communicates</span>, <span className="font-medium underline decoration-current/20 underline-offset-8">creates</span>, and <span className="font-medium underline decoration-current/20 underline-offset-8">connects</span>?"
+          "What if one person’s <motion.span initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ delay: 1, duration: 1 }} className="italic font-medium">ideas</motion.span> could <motion.span initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ delay: 1.2, duration: 1 }} className="italic font-medium">change</motion.span> the way the world <span className="font-medium underline decoration-white/20 underline-offset-8">communicates</span>, <span className="font-medium underline decoration-white/20 underline-offset-8">creates</span>, and <span className="font-medium underline decoration-white/20 underline-offset-8">connects</span>?"
         </motion.h2>
         
         <motion.div
@@ -43,7 +42,7 @@ export const AnimatedQuestion: React.FC = () => {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 2, duration: 1 }}
-          className={`mt-12 text-[10px] font-mono uppercase tracking-[0.5em] ${theme === 'dark' ? 'text-white/20' : 'text-black/20'}`}
+          className="mt-12 text-[10px] font-mono uppercase tracking-[0.5em] text-white/30"
         >
           Scroll to discover
         </motion.div>
@@ -53,27 +52,27 @@ export const AnimatedQuestion: React.FC = () => {
 };
 
 export const LegacyIntro: React.FC = () => {
-  const { theme } = useTheme();
-  
   return (
-    <section className={`relative min-h-screen flex items-center justify-center transition-colors duration-500 overflow-hidden ${theme === 'dark' ? 'bg-zinc-900' : 'bg-zinc-50'}`}>
-      {/* Subtle Parallax Visuals */}
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
+      {/* Subtle Parallax Visuals with Radial Mask */}
       <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 bg-gradient-to-b from-zinc-900 to-black"></div>
         <motion.div 
           style={{ y: "-10%" }}
           whileInView={{ y: "10%" }}
           transition={{ ease: "linear" }}
-          className={`absolute inset-0 opacity-5 ${theme === 'dark' ? 'text-white' : 'text-black'}`}
+          className="absolute inset-0 opacity-[0.03] text-white"
         >
           <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
             <defs>
-              <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
+              <pattern id="grid-dark" width="10" height="10" patternUnits="userSpaceOnUse">
                 <path d="M 10 0 L 0 0 0 10" fill="none" stroke="currentColor" strokeWidth="0.1"/>
               </pattern>
             </defs>
-            <rect width="100" height="100" fill="url(#grid)" />
+            <rect width="100" height="100" fill="url(#grid-dark)" />
           </svg>
         </motion.div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,black_70%)]"></div>
       </div>
 
       <div className="container relative z-10 mx-auto px-6 py-20 max-w-5xl text-center">
@@ -83,7 +82,7 @@ export const LegacyIntro: React.FC = () => {
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
         >
-          <p className={`text-xl sm:text-2xl md:text-5xl font-light leading-snug mb-16 transition-colors duration-500 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
+          <p className="text-xl sm:text-2xl md:text-5xl font-light leading-snug mb-16 text-white">
             That question defines the <span className="font-medium italic">legacy</span> of Steve Jobs—the <span className="font-medium">visionary</span> co-founder of Apple who believed technology should not merely function, but <motion.span animate={{ opacity: [0.6, 1, 0.6] }} transition={{ duration: 3, repeat: Infinity }} className="font-medium">inspire</motion.span>.
           </p>
           <motion.div 
@@ -91,7 +90,7 @@ export const LegacyIntro: React.FC = () => {
             whileInView={{ width: "100px" }}
             viewport={{ once: true }}
             transition={{ delay: 1, duration: 1 }}
-            className={`h-px mx-auto transition-colors duration-500 ${theme === 'dark' ? 'bg-white/40' : 'bg-black/40'}`}
+            className="h-px mx-auto bg-white/40"
           ></motion.div>
         </motion.div>
       </div>
@@ -159,6 +158,85 @@ export const PhilosophySection: React.FC = () => {
               </div>
             </motion.div>
           </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export const ThemeSection: React.FC = () => {
+  const cards = [
+    {
+      icon: Eye,
+      title: "Vision",
+      desc: "Seeing the future before it exists and having the courage to build it."
+    },
+    {
+      icon: Lightbulb,
+      title: "Innovation",
+      desc: "Challenging conventions to redefine how we interact with the world."
+    },
+    {
+      icon: Minimize2,
+      title: "Simplicity",
+      desc: "The ultimate sophistication. Stripping away the unnecessary."
+    },
+    {
+      icon: History,
+      title: "Legacy",
+      desc: "A story of creative rebellion that continues to shape our digital age."
+    }
+  ];
+
+  return (
+    <section className="py-32 md:py-48 overflow-hidden relative bg-black">
+      {/* Creative Background Elements */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <div className="absolute inset-0 bg-gradient-to-br from-black via-zinc-950 to-black"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full opacity-[0.02] invert">
+          <img 
+            src="https://picsum.photos/seed/innovation-tech/1920/1080" 
+            alt="Innovation Background" 
+            className="w-full h-full object-cover grayscale"
+            referrerPolicy="no-referrer"
+          />
+        </div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] opacity-20 blur-[140px] rounded-full bg-blue-900/30"></div>
+        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-[0.05]"></div>
+      </div>
+
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="max-w-5xl mx-auto text-center mb-24">
+          <motion.div
+            initial={{ y: 40, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <h3 className="text-xs font-mono uppercase tracking-[0.4em] mb-8 text-white/40">The Theme</h3>
+            <h2 className="text-3xl md:text-5xl font-light leading-tight tracking-tight text-white">
+              The <span className="italic font-medium">Autobiography of Steve Jobs</span> invites you to <span className="font-medium underline decoration-white/20 underline-offset-8">EXPLORE</span> the life, mindset, and defining moments of a man who challenged conventions and helped shape the digital age.
+            </h2>
+          </motion.div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {cards.map((card, i) => (
+            <motion.div
+              key={i}
+              initial={{ y: 40, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.8, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+              className="p-10 rounded-[2.5rem] border transition-all duration-500 group hover:-translate-y-2 hover:shadow-2xl bg-zinc-900/40 border-white/5 hover:bg-zinc-900 hover:border-white/10 hover:shadow-white/5"
+            >
+              <div className="w-14 h-14 rounded-2xl mb-8 flex items-center justify-center transition-all duration-500 bg-white/5 text-white group-hover:bg-white group-hover:text-black">
+                <card.icon className="w-6 h-6" />
+              </div>
+              <h4 className="text-xl font-medium mb-4 text-white">{card.title}</h4>
+              <p className="text-sm font-light leading-relaxed text-gray-400">{card.desc}</p>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
