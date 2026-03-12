@@ -2,65 +2,49 @@
   {
     "id": 1,
     "year": "1976",
-    "title": "Apple Founded",
-    "description": "Steve Jobs, Steve Wozniak, and Ronald Wayne found Apple Computer in the Jobs family garage in Los Altos, California.",
-    "image": "https://picsum.photos/seed/apple-garage/800/600",
-    "topic": "Entrepreneurship"
+    "title": "Founding Apple",
+    "description": "Apple Computer is founded by Steve Jobs and Steve Wozniak in the Jobs family garage, starting a revolution in personal computing.",
+    "image": "https://images.unsplash.com/photo-1539185441755-769473a23570?q=80&w=2071&auto=format&fit=crop",
+    "cta": "Explore the Garage Days"
   },
   {
     "id": 2,
     "year": "1984",
-    "title": "Macintosh Launch",
-    "description": "The Macintosh is introduced with the famous '1984' Super Bowl commercial, bringing the graphical user interface to the masses.",
-    "image": "https://picsum.photos/seed/macintosh/800/600",
-    "topic": "Innovation"
+    "title": "The Macintosh",
+    "description": "Launch of the first mass-market personal computer with a graphical user interface, introduced by the iconic '1984' commercial.",
+    "image": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2070&auto=format&fit=crop",
+    "cta": "Watch the '1984' Ad"
   },
   {
     "id": 3,
-    "year": "1985",
-    "title": "Departure from Apple",
-    "description": "Following a power struggle with CEO John Sculley, Jobs is stripped of his duties and resigns from Apple.",
-    "image": "https://picsum.photos/seed/steve-jobs-1985/800/600",
-    "topic": "Life Challenges"
+    "year": "1997",
+    "title": "The Return",
+    "description": "Jobs returns to Apple as iCEO and begins the 'Think Different' campaign, initiating one of the greatest turnarounds in business history.",
+    "image": "https://images.unsplash.com/photo-1611186871348-b1ec696e5237?q=80&w=2070&auto=format&fit=crop",
+    "cta": "See the Turnaround"
   },
   {
     "id": 4,
-    "year": "1985",
-    "title": "NeXT & Pixar",
-    "description": "Jobs founds NeXT Computer and acquires the Graphics Group from Lucasfilm, which later becomes Pixar Animation Studios.",
-    "image": "https://picsum.photos/seed/pixar/800/600",
-    "topic": "Entrepreneurship"
+    "year": "2001",
+    "title": "The iPod",
+    "description": "Apple revolutionizes the music industry with '1,000 songs in your pocket,' changing how we consume media forever.",
+    "image": "https://images.unsplash.com/photo-1619037961390-950000a72064?q=80&w=2070&auto=format&fit=crop",
+    "cta": "Discover the Evolution"
   },
   {
     "id": 5,
-    "year": "1997",
-    "title": "Return to Apple",
-    "description": "Apple acquires NeXT, and Jobs returns to the company he co-founded, eventually becoming 'iCEO'.",
-    "image": "https://picsum.photos/seed/apple-return/800/600",
-    "topic": "Leadership"
+    "year": "2007",
+    "title": "The iPhone",
+    "description": "Reinvents the phone, the internet, and mobile computing. A single device that changed the world's digital landscape.",
+    "image": "https://images.unsplash.com/photo-1556656793-062ff9878258?q=80&w=2070&auto=format&fit=crop",
+    "cta": "Re-watch the Keynote"
   },
   {
     "id": 6,
-    "year": "2001",
-    "title": "iPod & iTunes",
-    "description": "Apple introduces the iPod, revolutionizing the music industry and beginning the company's transformation into a digital powerhouse.",
-    "image": "https://picsum.photos/seed/ipod/800/600",
-    "topic": "Product Design"
-  },
-  {
-    "id": 7,
-    "year": "2007",
-    "title": "iPhone Launch",
-    "description": "Jobs unveils the iPhone, describing it as 'a revolutionary mobile phone, a widescreen iPod with touch controls, and a breakthrough Internet communications device.'",
-    "image": "https://picsum.photos/seed/iphone-launch/800/600",
-    "topic": "Innovation"
-  },
-  {
-    "id": 8,
     "year": "2011",
     "title": "Legacy",
-    "description": "Steve Jobs passes away, leaving behind a legacy that transformed the way we live, work, and communicate.",
-    "image": "https://picsum.photos/seed/steve-jobs-legacy/800/600",
-    "topic": "Life Challenges"
+    "description": "Steve Jobs passes away, leaving a legacy of innovation that continues to inspire dreamers and creators globally.",
+    "image": "https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?q=80&w=2070&auto=format&fit=crop",
+    "cta": "Honor his Vision"
   }
 ]

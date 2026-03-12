@@ -9,10 +9,10 @@ export const AnimatedQuestion: React.FC = () => {
   const { theme } = useTheme();
   
   return (
-    <section id="animated-question" className="relative min-h-screen flex items-center justify-center text-center overflow-hidden bg-black">
+    <section id="animated-question" className={`relative min-h-screen flex items-center justify-center text-center overflow-hidden transition-colors duration-500 ${theme === 'dark' ? 'bg-black' : 'bg-white'}`}>
       {/* Immersive Background */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 opacity-40 bg-gradient-to-tr from-zinc-900 via-black to-zinc-900"></div>
+        <div className={`absolute inset-0 opacity-40 transition-colors duration-500 ${theme === 'dark' ? 'bg-gradient-to-tr from-zinc-900 via-black to-zinc-900' : 'bg-gradient-to-tr from-zinc-100 via-white to-zinc-100'}`}></div>
         <motion.div 
           animate={{ 
             scale: [1, 1.2, 1],
@@ -23,9 +23,9 @@ export const AnimatedQuestion: React.FC = () => {
             repeat: Infinity,
             ease: "easeInOut" 
           }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] blur-[160px] rounded-full bg-blue-500"
+          className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] blur-[160px] rounded-full transition-colors duration-500 ${theme === 'dark' ? 'bg-blue-500' : 'bg-blue-300'}`}
         ></motion.div>
-        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-[0.03] pointer-events-none"></div>
+        <div className={`absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] pointer-events-none transition-opacity duration-500 ${theme === 'dark' ? 'opacity-[0.03]' : 'opacity-[0.01]'}`}></div>
       </div>
 
       <div className="container relative z-10 mx-auto px-6 py-20">
@@ -34,9 +34,9 @@ export const AnimatedQuestion: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
-          className="text-3xl sm:text-4xl md:text-7xl font-light leading-tight max-w-5xl mx-auto tracking-tighter text-white"
+          className={`text-3xl sm:text-4xl md:text-7xl font-light leading-tight max-w-5xl mx-auto tracking-tighter transition-colors duration-500 ${theme === 'dark' ? 'text-white' : 'text-black'}`}
         >
-          "What if one person’s <motion.span initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ delay: 1, duration: 1 }} className="italic font-medium">ideas</motion.span> could <motion.span initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ delay: 1.2, duration: 1 }} className="italic font-medium">change</motion.span> the way the world <span className="font-medium underline decoration-white/20 underline-offset-8">communicates</span>, <span className="font-medium underline decoration-white/20 underline-offset-8">creates</span>, and <span className="font-medium underline decoration-white/20 underline-offset-8">connects</span>?"
+          "What if one person’s <motion.span initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ delay: 1, duration: 1 }} className="italic font-medium">ideas</motion.span> could <motion.span initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ delay: 1.2, duration: 1 }} className="italic font-medium">change</motion.span> the way the world <span className={`font-medium underline underline-offset-8 transition-colors duration-500 ${theme === 'dark' ? 'decoration-white/20' : 'decoration-black/10'}`}>communicates</span>, <span className={`font-medium underline underline-offset-8 transition-colors duration-500 ${theme === 'dark' ? 'decoration-white/20' : 'decoration-black/10'}`}>creates</span>, and <span className={`font-medium underline underline-offset-8 transition-colors duration-500 ${theme === 'dark' ? 'decoration-white/20' : 'decoration-black/10'}`}>connects</span>?"
         </motion.h2>
         
         <motion.div
@@ -44,7 +44,7 @@ export const AnimatedQuestion: React.FC = () => {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 2, duration: 1 }}
-          className="mt-12 text-[10px] font-mono uppercase tracking-[0.5em] text-white/30"
+          className={`mt-12 text-[10px] font-mono uppercase tracking-[0.5em] transition-colors duration-500 ${theme === 'dark' ? 'text-white/30' : 'text-black/30'}`}
         >
           Scroll to discover
         </motion.div>
@@ -57,15 +57,15 @@ export const LegacyIntro: React.FC = () => {
   const { theme } = useTheme();
   
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
+    <section className={`relative min-h-screen flex items-center justify-center overflow-hidden transition-colors duration-500 ${theme === 'dark' ? 'bg-black' : 'bg-white'}`}>
       {/* Subtle Parallax Visuals with Radial Mask */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-zinc-900 to-black"></div>
+        <div className={`absolute inset-0 transition-colors duration-500 ${theme === 'dark' ? 'bg-gradient-to-b from-zinc-900 to-black' : 'bg-gradient-to-b from-zinc-100 to-white'}`}></div>
         <motion.div 
           style={{ y: "-10%" }}
           whileInView={{ y: "10%" }}
           transition={{ ease: "linear" }}
-          className="absolute inset-0 opacity-[0.03] text-white"
+          className={`absolute inset-0 opacity-[0.03] transition-colors duration-500 ${theme === 'dark' ? 'text-white' : 'text-black'}`}
         >
           <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
             <defs>
@@ -76,7 +76,7 @@ export const LegacyIntro: React.FC = () => {
             <rect width="100" height="100" fill="url(#grid-dark)" />
           </svg>
         </motion.div>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,black_70%)]"></div>
+        <div className={`absolute inset-0 transition-colors duration-500 ${theme === 'dark' ? 'bg-[radial-gradient(circle_at_center,transparent_0%,black_70%)]' : 'bg-[radial-gradient(circle_at_center,transparent_0%,white_70%)]'}`}></div>
       </div>
 
       <div className="container relative z-10 mx-auto px-6 py-20 max-w-5xl text-center">
@@ -86,7 +86,7 @@ export const LegacyIntro: React.FC = () => {
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
         >
-          <p className="text-xl sm:text-2xl md:text-5xl font-light leading-snug mb-16 text-white">
+          <p className={`text-xl sm:text-2xl md:text-5xl font-light leading-snug mb-16 transition-colors duration-500 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
             That question defines the <span className="font-medium italic">legacy</span> of Steve Jobs—the <span className="font-medium">visionary</span> co-founder of Apple who believed technology should not merely function, but <motion.span animate={{ opacity: [0.6, 1, 0.6] }} transition={{ duration: 3, repeat: Infinity }} className="font-medium">inspire</motion.span>.
           </p>
           <motion.div 
@@ -94,7 +94,7 @@ export const LegacyIntro: React.FC = () => {
             whileInView={{ width: "100px" }}
             viewport={{ once: true }}
             transition={{ delay: 1, duration: 1 }}
-            className="h-px mx-auto bg-white/40"
+            className={`h-px mx-auto transition-colors duration-500 ${theme === 'dark' ? 'bg-white/40' : 'bg-black/40'}`}
           ></motion.div>
         </motion.div>
       </div>
@@ -194,11 +194,11 @@ export const ThemeSection: React.FC = () => {
   ];
 
   return (
-    <section className="py-32 md:py-48 overflow-hidden relative bg-black">
+    <section className={`py-32 md:py-48 overflow-hidden relative transition-colors duration-500 ${theme === 'dark' ? 'bg-black' : 'bg-white'}`}>
       {/* Creative Background Elements */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-to-br from-black via-zinc-950 to-black"></div>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full opacity-[0.02] invert">
+        <div className={`absolute inset-0 transition-colors duration-500 ${theme === 'dark' ? 'bg-gradient-to-br from-black via-zinc-950 to-black' : 'bg-gradient-to-br from-white via-zinc-50 to-white'}`}></div>
+        <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full opacity-[0.02] transition-all duration-500 ${theme === 'dark' ? 'invert' : ''}`}>
           <img 
             src="https://picsum.photos/seed/innovation-tech/1920/1080" 
             alt="Innovation Background" 
@@ -206,8 +206,8 @@ export const ThemeSection: React.FC = () => {
             referrerPolicy="no-referrer"
           />
         </div>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] opacity-20 blur-[140px] rounded-full bg-blue-900/30"></div>
-        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-[0.05]"></div>
+        <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] opacity-20 blur-[140px] rounded-full transition-colors duration-500 ${theme === 'dark' ? 'bg-blue-900/30' : 'bg-blue-100/30'}`}></div>
+        <div className={`absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] transition-opacity duration-500 ${theme === 'dark' ? 'opacity-[0.05]' : 'opacity-[0.02]'}`}></div>
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
@@ -218,8 +218,8 @@ export const ThemeSection: React.FC = () => {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
           >
-            <h3 className="text-xs font-mono uppercase tracking-[0.4em] mb-8 text-white/40">The Theme</h3>
-            <h2 className="text-2xl md:text-4xl font-light leading-relaxed tracking-tight text-white max-w-4xl mx-auto">
+            <h3 className={`text-xs font-mono uppercase tracking-[0.4em] mb-8 transition-colors duration-500 ${theme === 'dark' ? 'text-white/40' : 'text-black/40'}`}>The Theme</h3>
+            <h2 className={`text-2xl md:text-4xl font-light leading-relaxed tracking-tight max-w-4xl mx-auto transition-colors duration-500 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
               This digital experience presents his journey through an AI-powered biographical experience, allowing visitors to explore the ideas, decisions, and milestones that shaped one of the most influential innovators of the modern era.
             </h2>
           </motion.div>
@@ -233,13 +233,13 @@ export const ThemeSection: React.FC = () => {
               whileInView={{ y: 0, opacity: 1 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.8, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-              className="p-10 rounded-[2.5rem] border transition-all duration-500 group hover:-translate-y-2 hover:shadow-2xl bg-zinc-900/40 border-white/5 hover:bg-zinc-900 hover:border-white/10 hover:shadow-white/5"
+              className={`p-10 rounded-[2.5rem] border transition-all duration-500 group hover:-translate-y-2 hover:shadow-2xl ${theme === 'dark' ? 'bg-zinc-900/40 border-white/5 hover:bg-zinc-900 hover:border-white/10 hover:shadow-white/5' : 'bg-zinc-50/40 border-black/5 hover:bg-zinc-50 hover:border-black/10 hover:shadow-black/5'}`}
             >
-              <div className="w-14 h-14 rounded-2xl mb-8 flex items-center justify-center transition-all duration-500 bg-white/5 text-white group-hover:bg-white group-hover:text-black">
+              <div className={`w-14 h-14 rounded-2xl mb-8 flex items-center justify-center transition-all duration-500 ${theme === 'dark' ? 'bg-white/5 text-white group-hover:bg-white group-hover:text-black' : 'bg-black/5 text-black group-hover:bg-black group-hover:text-white'}`}>
                 <card.icon className="w-6 h-6" />
               </div>
-              <h4 className="text-xl font-medium mb-4 text-white">{card.title}</h4>
-              <p className="text-sm font-light leading-relaxed text-gray-400">{card.desc}</p>
+              <h4 className={`text-xl font-medium mb-4 transition-colors duration-500 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>{card.title}</h4>
+              <p className={`text-sm font-light leading-relaxed transition-colors duration-500 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>{card.desc}</p>
             </motion.div>
           ))}
         </div>
