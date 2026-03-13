@@ -1,49 +1,65 @@
 [
   {
     "id": 1,
+    "year": "1974",
+    "title": "Early Exploration",
+    "description": "Jobs works at Atari as a technician and travels to India in search of spiritual enlightenment, experiences that would deeply influence his design philosophy.",
+    "image": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2070&auto=format&fit=crop",
+    "cta": "Explore Early Influences"
+  },
+  {
+    "id": 2,
     "year": "1976",
     "title": "Founding Apple",
-    "description": "Apple Computer is founded by Steve Jobs and Steve Wozniak in the Jobs family garage, starting a revolution in personal computing.",
+    "description": "Apple Computer is founded by Steve Jobs and Steve Wozniak in the Jobs family garage, starting a revolution in personal computing with the Apple I.",
     "image": "https://images.unsplash.com/photo-1539185441755-769473a23570?q=80&w=2071&auto=format&fit=crop",
     "cta": "Explore the Garage Days"
   },
   {
-    "id": 2,
+    "id": 3,
     "year": "1984",
     "title": "The Macintosh",
-    "description": "Launch of the first mass-market personal computer with a graphical user interface, introduced by the iconic '1984' commercial.",
+    "description": "Launch of the first mass-market personal computer with a graphical user interface, introduced by the iconic '1984' commercial during the Super Bowl.",
     "image": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2070&auto=format&fit=crop",
     "cta": "Watch the '1984' Ad"
   },
   {
-    "id": 3,
-    "year": "1997",
-    "title": "The Return",
-    "description": "Jobs returns to Apple as iCEO and begins the 'Think Different' campaign, initiating one of the greatest turnarounds in business history.",
-    "image": "https://images.unsplash.com/photo-1611186871348-b1ec696e5237?q=80&w=2070&auto=format&fit=crop",
-    "cta": "See the Turnaround"
-  },
-  {
     "id": 4,
-    "year": "2001",
-    "title": "The iPod",
-    "description": "Apple revolutionizes the music industry with '1,000 songs in your pocket,' changing how we consume media forever.",
-    "image": "https://images.unsplash.com/photo-1619037961390-950000a72064?q=80&w=2070&auto=format&fit=crop",
-    "cta": "Discover the Evolution"
+    "year": "1985",
+    "title": "The Departure",
+    "description": "After a power struggle with CEO John Sculley, Jobs leaves Apple and founds NeXT, while also acquiring the Computer Graphics Division of Lucasfilm, which becomes Pixar.",
+    "image": "https://images.unsplash.com/photo-1516321497487-e288fb19713f?q=80&w=2070&auto=format&fit=crop",
+    "cta": "The NeXT Chapter"
   },
   {
     "id": 5,
-    "year": "2007",
-    "title": "The iPhone",
-    "description": "Reinvents the phone, the internet, and mobile computing. A single device that changed the world's digital landscape.",
-    "image": "https://images.unsplash.com/photo-1556656793-062ff9878258?q=80&w=2070&auto=format&fit=crop",
-    "cta": "Re-watch the Keynote"
+    "year": "1997",
+    "title": "The Return",
+    "description": "Jobs returns to Apple as iCEO after Apple acquires NeXT. He begins the 'Think Different' campaign and initiates one of the greatest turnarounds in business history.",
+    "image": "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=2070&auto=format&fit=crop",
+    "cta": "See the Turnaround"
   },
   {
     "id": 6,
+    "year": "2001",
+    "title": "The iPod",
+    "description": "Apple revolutionizes the music industry with '1,000 songs in your pocket,' changing how we consume media and setting the stage for the digital music era.",
+    "image": "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=2070&auto=format&fit=crop",
+    "cta": "Discover the Evolution"
+  },
+  {
+    "id": 7,
+    "year": "2007",
+    "title": "The iPhone",
+    "description": "Jobs unveils the iPhone, a device that reinvents the phone, the internet, and mobile computing, fundamentally changing the world's digital landscape.",
+    "image": "https://images.unsplash.com/photo-1512499617640-c74ae3a79d37?q=80&w=2070&auto=format&fit=crop",
+    "cta": "Re-watch the Keynote"
+  },
+  {
+    "id": 8,
     "year": "2011",
     "title": "Legacy",
-    "description": "Steve Jobs passes away, leaving a legacy of innovation that continues to inspire dreamers and creators globally.",
+    "description": "Steve Jobs passes away, leaving a legacy of innovation, design excellence, and a challenge to 'stay hungry, stay foolish' for generations to come.",
     "image": "https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?q=80&w=2070&auto=format&fit=crop",
     "cta": "Honor his Vision"
   }

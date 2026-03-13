@@ -1,19 +1,21 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useScroll, useSpring, useTransform } from 'motion/react';
-import { useAudio } from './AudioProvider';
 import { useTheme } from './ThemeProvider';
 import timelineEvents from '../data/timeline_events.json';
 import { ArrowRight } from 'lucide-react';
 
 export const Timeline: React.FC = () => {
-  const { playSFX } = useAudio();
   const { theme } = useTheme();
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(-1);
+  const headerRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  
+  const timelineRef = useRef<HTMLDivElement>(null);
+
+  const HEADER_IMAGE = "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?q=80&w=2012&auto=format&fit=crop";
+
   const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"]
+    target: timelineRef,
+    offset: ["start center", "end center"]
   });
 
   const scaleY = useSpring(scrollYProgress, {
@@ -22,160 +24,174 @@ export const Timeline: React.FC = () => {
     restDelta: 0.001
   });
 
-  // Parallax effect for content
-  const yContent = useTransform(scrollYProgress, [0, 1], [0, -50]);
-
   useEffect(() => {
-    const options = {
-      root: null,
-      rootMargin: "-50% 0px -50% 0px",
-      threshold: 0
-    };
+    const handleScroll = () => {
+      if (window.scrollY < 50) {
+        setActiveIndex(-1);
+        return;
+      }
 
-    const callback = (entries: IntersectionObserverEntry[]) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const index = parseInt(entry.target.getAttribute('data-index') || '0');
-          setActiveIndex(index);
-          playSFX('transition');
+      const sections = document.querySelectorAll('.milestone-section');
+      const header = document.querySelector('.page-header-section');
+      const centerY = window.innerHeight / 2;
+      
+      let closestIndex = -1;
+      let minDistance = Infinity;
+
+      // Check header distance
+      if (header) {
+        const headerRect = header.getBoundingClientRect();
+        const headerCenterY = headerRect.top + headerRect.height / 2;
+        const headerDistance = Math.abs(centerY - headerCenterY);
+        minDistance = headerDistance;
+      }
+      
+      sections.forEach((section, index) => {
+        const rect = section.getBoundingClientRect();
+        const sectionCenterY = rect.top + rect.height / 2;
+        const distance = Math.abs(centerY - sectionCenterY);
+        
+        if (distance < minDistance) {
+          minDistance = distance;
+          closestIndex = index;
         }
       });
+      
+      setActiveIndex((prev) => (prev !== closestIndex ? closestIndex : prev));
     };
 
-    const observer = new IntersectionObserver(callback, options);
-    
-    const sections = document.querySelectorAll('.timeline-section');
-    sections.forEach((section) => observer.observe(section));
-    
-    return () => observer.disconnect();
-  }, [playSFX]);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <div className="relative">
-      {/* Page Header Section */}
-      <div className={`pt-32 pb-24 text-center px-6 transition-colors duration-500 ${theme === 'dark' ? 'bg-black text-white' : 'bg-white text-black'}`}>
+    <div className="relative min-h-screen transition-colors duration-500">
+      {/* Background Layer */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeIndex}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8 }}
+            className="absolute inset-0"
+          >
+            <img
+              src={activeIndex === -1 ? HEADER_IMAGE : timelineEvents[activeIndex]?.image}
+              alt={activeIndex === -1 ? "Journey Intro" : timelineEvents[activeIndex]?.title}
+              className="w-full h-full object-cover grayscale opacity-50"
+              referrerPolicy="no-referrer"
+            />
+            <div className={`absolute inset-0 ${theme === 'dark' ? 'bg-black/60' : 'bg-white/70'}`} />
+          </motion.div>
+        </AnimatePresence>
+      </div>
+
+      {/* Page Header Section - Always visible first */}
+      <div 
+        ref={headerRef}
+        className={`page-header-section pt-32 pb-48 text-center px-6 relative z-10 transition-colors duration-500 ${theme === 'dark' ? 'text-white' : 'text-black'}`}
+      >
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
           className="max-w-4xl mx-auto"
         >
-          <h1 className="text-5xl md:text-7xl font-light tracking-tight mb-6">
-            The Journey of a Visionary
+          <div className={`mb-6 text-[10px] font-mono uppercase tracking-[0.6em] transition-colors duration-500 ${theme === 'dark' ? 'text-white/50' : 'text-black/40'}`}>
+            The Visionary's Path
+          </div>
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-light tracking-tighter leading-[0.85] mb-8">
+            The Journey of <br />
+            a <span className="font-medium italic">Visionary</span>
           </h1>
-          <p className={`text-xl md:text-2xl font-light max-w-2xl mx-auto transition-colors duration-500 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
+          <p className={`text-lg md:text-xl font-light max-w-2xl mx-auto leading-relaxed tracking-wide transition-colors duration-500 ${theme === 'dark' ? 'text-white/60' : 'text-gray-600'}`}>
             Walk through the setbacks, breakthroughs, and revolutions that changed everything.
           </p>
         </motion.div>
       </div>
 
-      <section id="journey" ref={containerRef} className="relative min-h-screen transition-colors duration-500">
-        {/* Fixed Background Layer */}
-        <div className="fixed inset-0 z-0 pointer-events-none">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeIndex}
-              initial={{ opacity: 0, scale: 1.1 }}
-              animate={{ opacity: 0.4, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
-              className="absolute inset-0"
-            >
-              <img 
-                src={timelineEvents[activeIndex].image} 
-                alt={timelineEvents[activeIndex].title}
-                className="w-full h-full object-cover grayscale"
-                referrerPolicy="no-referrer"
-              />
-              <div className={`absolute inset-0 transition-colors duration-500 ${theme === 'dark' ? 'bg-black/60' : 'bg-white/60'}`}></div>
-            </motion.div>
-          </AnimatePresence>
-          
-          {/* Gradient Overlays */}
-          <div className={`absolute inset-0 bg-gradient-to-b transition-colors duration-500 ${theme === 'dark' ? 'from-black via-transparent to-black' : 'from-white via-transparent to-white'}`}></div>
-        </div>
-
-        <div className="container mx-auto px-6 relative z-10 flex flex-col md:flex-row gap-12 lg:gap-24">
-          {/* Left Rail: Sticky Progress Line */}
-          <div className="hidden md:block w-32 lg:w-48 relative">
+      {/* Timeline Section */}
+      <div ref={timelineRef} className="relative">
+        <div className="container mx-auto px-6 relative z-10 flex flex-col md:flex-row gap-8 md:gap-[2rem]">
+          {/* Left Column (Progress Rail) */}
+          <div className="hidden md:block w-32 relative">
             <div className="sticky top-0 h-screen flex flex-col items-center justify-center">
-              {/* Vertical Line */}
-              <div className={`absolute h-3/4 w-px transition-colors duration-500 ${theme === 'dark' ? 'bg-white/10' : 'bg-black/10'}`}>
-                <motion.div 
-                  className={`absolute top-0 left-0 w-full origin-top transition-colors duration-500 ${theme === 'dark' ? 'bg-white' : 'bg-black'}`}
-                  style={{ scaleY }}
+              <div className={`w-px h-2/3 relative ${theme === 'dark' ? 'bg-white/20' : 'bg-black/20'}`}>
+                <motion.div
+                  className={`absolute top-0 left-0 w-full origin-top ${theme === 'dark' ? 'bg-white' : 'bg-black'}`}
+                  style={{ scaleY, height: '100%' }}
                 />
-              </div>
-
-              {/* Year Markers */}
-              <div className="relative h-3/4 flex flex-col justify-between py-4">
-                {timelineEvents.map((event, index) => (
-                  <motion.div
-                    key={event.id}
-                    className="relative flex items-center justify-center"
-                    animate={{
-                      scale: activeIndex === index ? 1.4 : 1,
-                      opacity: activeIndex === index ? 1 : 0.3
-                    }}
-                    transition={{ duration: 0.6, ease: "easeOut" }}
-                  >
-                    <div className={`w-3 h-3 rounded-full transition-colors duration-500 ${theme === 'dark' ? 'bg-white' : 'bg-black'}`} />
-                    <span className={`absolute right-8 text-xs font-mono transition-colors duration-500 whitespace-nowrap ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-                      {event.year}
-                    </span>
-                  </motion.div>
-                ))}
+                
+                {/* Year Markers */}
+                <div className="absolute inset-0 flex flex-col justify-between py-2">
+                  {timelineEvents.map((event, index) => (
+                    <div key={event.id} className="relative flex items-center justify-center">
+                      <div
+                        style={{
+                          transform: `scale(${activeIndex === index ? 1.5 : 1})`,
+                          opacity: activeIndex === index ? 1 : 0.4,
+                        }}
+                        className={`absolute right-6 whitespace-nowrap text-sm font-mono transition-all duration-0 ${theme === 'dark' ? 'text-white' : 'text-black'}`}
+                      >
+                        {event.year}
+                      </div>
+                      <div className={`w-2 h-2 rounded-full ${theme === 'dark' ? 'bg-white' : 'bg-black'}`} />
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Right Column: Scrolling Content */}
-          <div className="flex-1">
-            {timelineEvents.map((event, index) => (
-              <div 
-                key={event.id} 
-                data-index={index}
-                className="timeline-section min-h-screen flex flex-col justify-center py-24 md:py-0"
-              >
-                <motion.div
-                  style={{ y: yContent }}
-                  initial={{ opacity: 0, y: 50 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: false, margin: "-20%" }}
-                  transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-                  className="max-w-2xl mx-auto text-center"
+          {/* Right Column (Content) */}
+          <div className="flex-1 relative">
+            {/* Sticky Content Display Area */}
+            <div className="sticky top-0 h-screen flex flex-col justify-center pointer-events-none">
+              <div className={`max-w-2xl mx-auto md:mx-0 text-center md:text-left pointer-events-auto transition-opacity duration-300 ${activeIndex === -1 ? 'opacity-0' : 'opacity-100'}`}>
+                <span className={`text-[10px] font-mono uppercase tracking-[0.6em] mb-6 block transition-colors duration-500 ${theme === 'dark' ? 'text-white/50' : 'text-black/40'}`}>
+                  {timelineEvents[activeIndex]?.year}
+                </span>
+                <h2 className={`text-4xl md:text-6xl lg:text-7xl font-light tracking-tighter leading-tight mb-8 transition-colors duration-500 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
+                  {timelineEvents[activeIndex]?.title}
+                </h2>
+                <p className={`text-lg md:text-xl font-light mb-10 leading-relaxed tracking-wide transition-colors duration-500 ${theme === 'dark' ? 'text-white/60' : 'text-gray-600'}`}>
+                  {timelineEvents[activeIndex]?.description}
+                </p>
+                <button
+                  className={`group relative inline-flex items-center gap-6 text-xs font-mono uppercase tracking-[0.4em] transition-all duration-500 ${theme === 'dark' ? 'text-white/60 hover:text-white' : 'text-black/50 hover:text-black'}`}
                 >
-                  <span className={`text-sm font-mono uppercase tracking-[0.4em] mb-6 block transition-colors duration-500 ${theme === 'dark' ? 'text-white/40' : 'text-black/40'}`}>
-                    {event.year}
-                  </span>
-                  <h2 className={`text-5xl md:text-8xl font-light tracking-tighter leading-none mb-8 transition-colors duration-500 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-                    {event.title}
-                  </h2>
-                  <p className={`text-xl md:text-2xl font-light leading-relaxed mb-12 transition-colors duration-500 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
-                    {event.description}
-                  </p>
-                  
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    onClick={() => playSFX('click')}
-                    className={`group inline-flex items-center gap-4 text-xs font-mono uppercase tracking-[0.3em] transition-colors duration-500 ${theme === 'dark' ? 'text-white hover:text-white/70' : 'text-black hover:text-black/70'}`}
-                  >
-                    {event.cta}
-                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-2" />
-                  </motion.button>
-                </motion.div>
+                  <span className="relative z-10">{timelineEvents[activeIndex]?.cta}</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-3 transition-transform duration-500" />
+                  <div className={`absolute -bottom-2 left-0 w-0 h-px transition-all duration-500 group-hover:w-full ${theme === 'dark' ? 'bg-white/40' : 'bg-black/40'}`}></div>
+                </button>
               </div>
-            ))}
-          </div>
-        </div>
+            </div>
 
-        {/* Mobile Year Indicator */}
-        <div className="md:hidden fixed bottom-8 right-8 z-30">
-          <div className={`px-4 py-2 rounded-full backdrop-blur-md border transition-colors duration-500 ${theme === 'dark' ? 'bg-white/10 border-white/20 text-white' : 'bg-black/10 border-black/20 text-black'}`}>
-            <span className="text-xs font-mono font-bold">{timelineEvents[activeIndex].year}</span>
+            {/* Scroll Trigger Sections */}
+            <div className="relative z-0">
+              {timelineEvents.map((_, index) => (
+                <div
+                  key={index}
+                  className="milestone-section h-screen"
+                  data-index={index}
+                />
+              ))}
+            </div>
           </div>
         </div>
-      </section>
+      </div>
+      
+      {/* Mobile Year Indicator (Floating) */}
+      <div className={`md:hidden fixed bottom-6 right-6 z-50 transition-opacity duration-300 ${activeIndex === -1 ? 'opacity-0' : 'opacity-100'}`}>
+        <div className={`px-4 py-2 rounded-full backdrop-blur-md border ${theme === 'dark' ? 'bg-black/50 border-white/20 text-white' : 'bg-white/50 border-black/20 text-black'}`}>
+          <span className="text-sm font-mono font-bold">
+            {timelineEvents[activeIndex]?.year}
+          </span>
+        </div>
+      </div>
     </div>
   );
 };
