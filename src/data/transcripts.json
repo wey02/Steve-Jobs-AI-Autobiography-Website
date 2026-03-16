@@ -1,42 +1,92 @@
 [
   {
     "id": "doc-1",
-    "title": "The Visionary Mind",
-    "description": "An exploration of Steve Jobs' early years and the founding of Apple.",
-    "duration": "5:00",
-    "thumbnail": "https://picsum.photos/seed/jobs-visionary/400/225",
-    "transcript": "Steve Jobs was born in 1955. He grew up in the Silicon Valley area. In 1976, he and Steve Wozniak started Apple in a garage. They wanted to make computers accessible to everyone. The Apple II was a huge success..."
+    "title": "Steve Jobs: One Last Thing",
+    "description": "A PBS documentary providing an inside look at the man who changed the world, featuring interviews with those who knew him best.",
+    "duration": "56:14",
+    "thumbnail": "https://picsum.photos/seed/jobs-pbs/400/225",
+    "transcript": "This documentary explores the life and legacy of Steve Jobs, covering his unique approach to design, his intense management style, and his vision for the future of technology. It includes rare footage and interviews with colleagues and competitors alike.",
+    "video": "https://youtu.be/s5KmCGmkI1k?si=U0R6zYfzsItFoMVM"
   },
   {
     "id": "doc-2",
-    "title": "The Wilderness Years",
-    "description": "Steve's departure from Apple, the founding of NeXT, and the rise of Pixar.",
-    "duration": "5:00",
-    "thumbnail": "https://picsum.photos/seed/jobs-wilderness/400/225",
-    "transcript": "In 1985, Jobs was forced out of Apple. He didn't give up. He started NeXT, a high-end workstation company. He also bought Pixar. Pixar went on to create Toy Story, the first computer-animated feature film..."
+    "title": "Steve Jobs: The Lost Interview",
+    "description": "A candid 1995 interview with Steve Jobs, rediscovered after his death, where he speaks openly about his philosophy on business and life.",
+    "duration": "1:10:00",
+    "thumbnail": "https://picsum.photos/seed/jobs-interview/400/225",
+    "transcript": "In this rare interview, Steve Jobs discusses the early days of Apple, his time at NeXT, and his belief in the power of software to change the world. He shares insights into his creative process and his thoughts on the future of the computer industry.",
+    "video": "https://www.youtube.com/watch?v=zS9U7vGkI-A"
   },
   {
     "id": "doc-3",
-    "title": "The Great Return",
-    "description": "The story of Apple's near-bankruptcy and Steve's triumphant return.",
-    "duration": "5:00",
-    "thumbnail": "https://picsum.photos/seed/jobs-return/400/225",
-    "transcript": "By 1996, Apple was in trouble. They bought NeXT for its operating system. Jobs returned as an advisor, then interim CEO. He simplified the product line and introduced the iMac..."
+    "title": "Steve Jobs: Billion Dollar Hippy",
+    "description": "A BBC documentary exploring the counter-culture roots of Apple and how Steve Jobs combined 60s spirit with Silicon Valley tech.",
+    "duration": "59:00",
+    "thumbnail": "https://picsum.photos/seed/jobs-bbc/400/225",
+    "transcript": "Billion Dollar Hippy tells the story of how Steve Jobs and Apple revolutionized the world by blending counter-culture ideals with cutting-edge technology. It features interviews with key figures from Apple's history.",
+    "video": "https://www.youtube.com/watch?v=0L_j_S-X9oA"
   },
   {
     "id": "doc-4",
-    "title": "The Mobile Revolution",
-    "description": "How the iPod and iPhone changed the world forever.",
-    "duration": "5:00",
-    "thumbnail": "https://picsum.photos/seed/jobs-mobile/400/225",
-    "transcript": "In 2001, Apple launched the iPod. It changed how we listen to music. Then in 2007, the iPhone was born. It wasn't just a phone; it was a computer in your pocket..."
+    "title": "Bloomberg Game Changers: Steve Jobs",
+    "description": "A deep dive into the career of the man who revolutionized multiple industries, from personal computing to mobile phones.",
+    "duration": "45:00",
+    "thumbnail": "https://picsum.photos/seed/jobs-bloomberg/400/225",
+    "transcript": "Bloomberg Game Changers traces Steve Jobs' journey from a college dropout to the CEO of the world's most valuable company. It examines his impact on the computer, music, and mobile phone industries through the lens of business innovation.",
+    "video": "https://www.youtube.com/watch?v=n6v0O8p0mXk"
   },
   {
     "id": "doc-5",
-    "title": "The Final Act",
-    "description": "Steve's later years, his legacy, and the future of Apple.",
-    "duration": "5:00",
-    "thumbnail": "https://picsum.photos/seed/jobs-final/400/225",
-    "transcript": "Steve Jobs' final years were marked by incredible product launches like the iPad. He focused on the intersection of technology and the liberal arts. His legacy continues to inspire millions..."
+    "title": "iGenius: How Steve Jobs Changed the World",
+    "description": "Discovery Channel's tribute to the life and innovations of Steve Jobs, hosted by Adam Savage and Jamie Hyneman.",
+    "duration": "44:00",
+    "thumbnail": "https://picsum.photos/seed/jobs-discovery/400/225",
+    "transcript": "iGenius explores the innovations that defined Steve Jobs' career, from the first Macintosh to the iPad. It features commentary from technology experts and those who worked closely with him to bring his visions to life.",
+    "video": "https://www.youtube.com/watch?v=vN4U5Fqr1Ax"
+  },
+  {
+    "id": "doc-6",
+    "title": "Steve Jobs: The Man in the Machine",
+    "description": "A provocative look at the life and legacy of the Apple co-founder, exploring the personal and professional costs of his ambition.",
+    "duration": "2:08:00",
+    "thumbnail": "https://picsum.photos/seed/jobs-machine/400/225",
+    "transcript": "This documentary offers a critical perspective on Steve Jobs, examining his complex personality and the impact he had on the people around him. It delves into the darker side of his success and the cult-like following of Apple.",
+    "video": "https://www.youtube.com/watch?v=jhW9Xv06eNo"
+  },
+  {
+    "id": "doc-7",
+    "title": "Steve Jobs: Visionary",
+    "description": "A short documentary highlighting the key milestones in Steve Jobs' career and his enduring influence on modern technology.",
+    "duration": "15:00",
+    "thumbnail": "https://picsum.photos/seed/jobs-visionary-2/400/225",
+    "transcript": "Steve Jobs was a visionary who saw the potential of technology to empower individuals. This film highlights his greatest achievements and the philosophy that drove him to create products that changed the way we live and work.",
+    "video": "https://www.youtube.com/watch?v=n6v0O8p0mXk"
+  },
+  {
+    "id": "doc-8",
+    "title": "Steve Jobs: 1980 Interview",
+    "description": "A fascinating look at a young Steve Jobs discussing the future of personal computing and the potential of the Apple II.",
+    "duration": "20:00",
+    "thumbnail": "https://picsum.photos/seed/jobs-1980/400/225",
+    "transcript": "In this 1980 interview, a 25-year-old Steve Jobs shares his excitement about the personal computer revolution. He explains why he believes computers will become essential tools for everyone and how Apple is leading the way.",
+    "video": "https://www.youtube.com/watch?v=wX7HmpInpS0"
+  },
+  {
+    "id": "doc-9",
+    "title": "Steve Jobs: Stanford Commencement Speech",
+    "description": "The famous 2005 speech where Steve Jobs shares three stories from his life and encourages graduates to 'Stay Hungry, Stay Foolish.'",
+    "duration": "15:00",
+    "thumbnail": "https://picsum.photos/seed/jobs-stanford/400/225",
+    "transcript": "Steve Jobs' commencement speech at Stanford University is one of the most famous and inspiring speeches of all time. He speaks about connecting the dots, love and loss, and death, urging his audience to follow their intuition.",
+    "video": "https://www.youtube.com/watch?v=UF8uR6Z6KLc"
+  },
+  {
+    "id": "doc-10",
+    "title": "Steve Jobs: The Exclusive Biography",
+    "description": "Interviews and insights related to Walter Isaacson's authorized biography of Steve Jobs.",
+    "duration": "30:00",
+    "thumbnail": "https://picsum.photos/seed/jobs-biography/400/225",
+    "transcript": "This documentary explores the process of writing Steve Jobs' authorized biography and features interviews with Walter Isaacson. it provides a deep look into Jobs' personal life and his thoughts on his own legacy.",
+    "video": "https://www.youtube.com/watch?v=8mS9I_wO89Y"
   }
 ]
