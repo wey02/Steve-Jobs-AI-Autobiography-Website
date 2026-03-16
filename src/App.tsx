@@ -10,6 +10,7 @@ import { Journey } from './pages/Journey';
 import { Wisdom } from './pages/Wisdom';
 import { DocumentaryPage } from './pages/DocumentaryPage';
 import { TalkToSteve } from './pages/TalkToSteve';
+import { MilestoneDetail } from './pages/MilestoneDetail';
 
 /**
  * Main Application Component
@@ -27,6 +28,7 @@ export default function App() {
               
               {/* Dedicated Pages */}
               <Route path="/journey" element={<Journey />} />
+              <Route path="/journey/:year" element={<MilestoneDetail />} />
               <Route path="/wisdom" element={<Wisdom />} />
               <Route path="/documentary" element={<DocumentaryPage />} />
               <Route path="/talk-to-steve" element={<TalkToSteve />} />

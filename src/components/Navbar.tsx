@@ -16,8 +16,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onSearchClick }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navItems = [
-    { name: 'Homepage', path: '/' },
-    { name: 'The Journey', path: '/journey' },
+    { name: 'Home', path: '/' },
+    { name: 'Journey', path: '/journey' },
     { name: 'Wisdom', path: '/wisdom' },
     { name: 'Documentary', path: '/documentary' },
     { name: 'Talk to Steve', path: '/talk-to-steve' },

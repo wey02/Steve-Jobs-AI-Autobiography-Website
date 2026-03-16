@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence, useScroll, useSpring, useTransform } from 'motion/react';
+import { Link, useLocation } from 'react-router-dom';
+import { motion, AnimatePresence, useScroll, useSpring, useTransform, useMotionValueEvent } from 'motion/react';
 import { useTheme } from './ThemeProvider';
 import timelineEvents from '../data/timeline_events.json';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ChevronUp } from 'lucide-react';
 
 export const Timeline: React.FC = () => {
   const { theme } = useTheme();
@@ -11,59 +12,56 @@ export const Timeline: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const timelineRef = useRef<HTMLDivElement>(null);
 
-  const HEADER_IMAGE = "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?q=80&w=2012&auto=format&fit=crop";
+  const HEADER_IMAGE = "https://images.macworld.com/images/event/wwdc2010_liveblog-266.JPG";
 
   const { scrollYProgress } = useScroll({
     target: timelineRef,
     offset: ["start center", "end center"]
   });
 
-  const scaleY = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
+  const N = timelineEvents.length;
+  
+  // Precise mapping: each milestone's center (scrollYProgress) maps exactly to its dot position (0 to 1)
+  const input = [0, ...timelineEvents.map((_, i) => (i + 0.5) / N), 1];
+  const output = [0, ...timelineEvents.map((_, i) => N > 1 ? i / (N - 1) : 0), 1];
+  
+  const mappedProgress = useTransform(scrollYProgress, input, output);
+
+  const scaleY = useSpring(mappedProgress, {
+    stiffness: 800,
+    damping: 50,
     restDelta: 0.001
   });
 
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    if (latest < 0.1 / N) {
+      setActiveIndex(-1);
+    } else {
+      // Switch active index exactly at the boundaries of the 70vh sections
+      const index = Math.min(Math.floor(latest * N), N - 1);
+      setActiveIndex(index);
+    }
+  });
+
+  const scrollToStart = () => {
+    timelineRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  const isLastMilestone = activeIndex === timelineEvents.length - 1;
+  const location = useLocation();
+
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY < 50) {
-        setActiveIndex(-1);
-        return;
+    const hash = location.hash.replace('#', '');
+    if (hash) {
+      const element = document.getElementById(hash);
+      if (element) {
+        // Delay slightly to ensure layout is ready
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
       }
-
-      const sections = document.querySelectorAll('.milestone-section');
-      const header = document.querySelector('.page-header-section');
-      const centerY = window.innerHeight / 2;
-      
-      let closestIndex = -1;
-      let minDistance = Infinity;
-
-      // Check header distance
-      if (header) {
-        const headerRect = header.getBoundingClientRect();
-        const headerCenterY = headerRect.top + headerRect.height / 2;
-        const headerDistance = Math.abs(centerY - headerCenterY);
-        minDistance = headerDistance;
-      }
-      
-      sections.forEach((section, index) => {
-        const rect = section.getBoundingClientRect();
-        const sectionCenterY = rect.top + rect.height / 2;
-        const distance = Math.abs(centerY - sectionCenterY);
-        
-        if (distance < minDistance) {
-          minDistance = distance;
-          closestIndex = index;
-        }
-      });
-      
-      setActiveIndex((prev) => (prev !== closestIndex ? closestIndex : prev));
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    }
+  }, [location]);
 
   return (
     <div className="relative min-h-screen transition-colors duration-500">
@@ -81,10 +79,10 @@ export const Timeline: React.FC = () => {
             <img
               src={activeIndex === -1 ? HEADER_IMAGE : timelineEvents[activeIndex]?.image}
               alt={activeIndex === -1 ? "Journey Intro" : timelineEvents[activeIndex]?.title}
-              className="w-full h-full object-cover grayscale opacity-50"
+              className="w-full h-full object-cover opacity-50"
               referrerPolicy="no-referrer"
             />
-            <div className={`absolute inset-0 ${theme === 'dark' ? 'bg-black/60' : 'bg-white/70'}`} />
+            <div className={`absolute inset-0 ${theme === 'dark' ? 'bg-black/40' : 'bg-white/50'}`} />
           </motion.div>
         </AnimatePresence>
       </div>
@@ -121,8 +119,12 @@ export const Timeline: React.FC = () => {
             <div className="sticky top-0 h-screen flex flex-col items-center justify-center">
               <div className={`w-px h-2/3 relative ${theme === 'dark' ? 'bg-white/20' : 'bg-black/20'}`}>
                 <motion.div
-                  className={`absolute top-0 left-0 w-full origin-top ${theme === 'dark' ? 'bg-white' : 'bg-black'}`}
-                  style={{ scaleY, height: '100%' }}
+                  className={`absolute left-0 w-full origin-top ${theme === 'dark' ? 'bg-white' : 'bg-black'}`}
+                  style={{ 
+                    scaleY, 
+                    top: '12px', // Center of the first dot (py-2 is 8px, dot is 8px, so 8 + 4 = 12)
+                    height: 'calc(100% - 24px)' // Distance between first and last dot centers
+                  }}
                 />
                 
                 {/* Year Markers */}
@@ -149,7 +151,7 @@ export const Timeline: React.FC = () => {
           {/* Right Column (Content) */}
           <div className="flex-1 relative">
             {/* Sticky Content Display Area */}
-            <div className="sticky top-0 h-screen flex flex-col justify-center pointer-events-none">
+            <div className="sticky top-0 h-screen flex flex-col justify-center pointer-events-none z-10">
               <div className={`max-w-2xl mx-auto md:mx-0 text-center md:text-left pointer-events-auto transition-opacity duration-300 ${activeIndex === -1 ? 'opacity-0' : 'opacity-100'}`}>
                 <span className={`text-[10px] font-mono uppercase tracking-[0.6em] mb-6 block transition-colors duration-500 ${theme === 'dark' ? 'text-white/50' : 'text-black/40'}`}>
                   {timelineEvents[activeIndex]?.year}
@@ -160,22 +162,25 @@ export const Timeline: React.FC = () => {
                 <p className={`text-lg md:text-xl font-light mb-10 leading-relaxed tracking-wide transition-colors duration-500 ${theme === 'dark' ? 'text-white/60' : 'text-gray-600'}`}>
                   {timelineEvents[activeIndex]?.description}
                 </p>
-                <button
+                <Link
+                  to={`/journey/${timelineEvents[activeIndex]?.year}`}
                   className={`group relative inline-flex items-center gap-6 text-xs font-mono uppercase tracking-[0.4em] transition-all duration-500 ${theme === 'dark' ? 'text-white/60 hover:text-white' : 'text-black/50 hover:text-black'}`}
+                  aria-label={`Navigate to ${timelineEvents[activeIndex]?.title} milestone details`}
                 >
                   <span className="relative z-10">{timelineEvents[activeIndex]?.cta}</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-3 transition-transform duration-500" />
                   <div className={`absolute -bottom-2 left-0 w-0 h-px transition-all duration-500 group-hover:w-full ${theme === 'dark' ? 'bg-white/40' : 'bg-black/40'}`}></div>
-                </button>
+                </Link>
               </div>
             </div>
 
             {/* Scroll Trigger Sections */}
-            <div className="relative z-0">
-              {timelineEvents.map((_, index) => (
+            <div className="relative z-0 pointer-events-none">
+              {timelineEvents.map((event, index) => (
                 <div
                   key={index}
-                  className="milestone-section h-screen"
+                  id={event.year}
+                  className="milestone-section h-[70vh] scroll-mt-[15vh]"
                   data-index={index}
                 />
               ))}
@@ -183,6 +188,26 @@ export const Timeline: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Scroll to Top Arrow - Only at the end */}
+      <AnimatePresence>
+        {isLastMilestone && (
+          <motion.button
+            initial={{ opacity: 0, scale: 0.8, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.8, y: 20 }}
+            onClick={scrollToStart}
+            aria-label="Scroll to 1974 milestone"
+            className={`fixed bottom-24 right-6 md:right-12 z-50 p-4 rounded-full backdrop-blur-md border shadow-2xl transition-all duration-300 hover:scale-110 active:scale-95 ${
+              theme === 'dark' 
+                ? 'bg-white/10 border-white/20 text-white hover:bg-white/20' 
+                : 'bg-black/5 border-black/10 text-black hover:bg-black/10'
+            }`}
+          >
+            <ChevronUp className="w-6 h-6" />
+          </motion.button>
+        )}
+      </AnimatePresence>
       
       {/* Mobile Year Indicator (Floating) */}
       <div className={`md:hidden fixed bottom-6 right-6 z-50 transition-opacity duration-300 ${activeIndex === -1 ? 'opacity-0' : 'opacity-100'}`}>

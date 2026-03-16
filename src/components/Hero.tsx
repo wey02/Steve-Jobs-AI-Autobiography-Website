@@ -84,7 +84,7 @@ export const Hero: React.FC = () => {
         >
           <div className="relative aspect-[4/5] md:aspect-auto md:h-[70vh] overflow-hidden rounded-2xl">
             <img 
-              src="https://upload.wikimedia.org/wikipedia/commons/d/dc/Steve_Jobs_Headshot_2010-edit.jpg" 
+              src="https://www.thephoblographer.com/wp-content/uploads/2017/10/steve-jobs-by-albert-watson.jpg" 
               alt="Steve Jobs" 
               className="w-full h-full object-cover grayscale brightness-75 group-hover:brightness-100 group-hover:grayscale-0 transition-all duration-1000 ease-in-out"
               referrerPolicy="no-referrer"
