@@ -13,23 +13,23 @@ export const Documentary: React.FC = () => {
   return (
     <section id="documentary" className={`py-24 transition-colors duration-500 ${theme === 'dark' ? 'bg-black text-white' : 'bg-white text-black'}`}>
       <div className="container mx-auto px-6">
-        <div className="mb-16">
+        <div className="mb-16 text-center">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl font-light tracking-tight mb-4"
+            className="text-4xl md:text-5xl font-light tracking-tight mb-4"
           >
-            AI Documentary
+            Inside the Mind of Steve Jobs
           </motion.h2>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className={`max-w-xl transition-colors duration-500 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}
+            className={`max-w-2xl mx-auto transition-colors duration-500 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}
           >
-            Immersive episodes exploring the intersection of technology and liberal arts.
+            A documentary exploring the complexities, brilliance, and impact of Steve Jobs’ extraordinary life.
           </motion.p>
         </div>
 

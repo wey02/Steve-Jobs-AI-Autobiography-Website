@@ -12,7 +12,7 @@ export const Timeline: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const timelineRef = useRef<HTMLDivElement>(null);
 
-  const HEADER_IMAGE = "https://images.macworld.com/images/event/wwdc2010_liveblog-266.JPG";
+  const HEADER_IMAGE = "https://media.formapro.com/739/conversions/YPwfBGBqRFF50AGfUSqw_0_3-medium.jpg";
 
   const { scrollYProgress } = useScroll({
     target: timelineRef,
@@ -66,20 +66,21 @@ export const Timeline: React.FC = () => {
   return (
     <div className="relative min-h-screen transition-colors duration-500">
       {/* Background Layer */}
-      <div className="fixed inset-0 z-0 pointer-events-none">
+      <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden h-[100dvh]">
         <AnimatePresence mode="wait">
           <motion.div
             key={activeIndex}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.8 }}
-            className="absolute inset-0"
+            transition={{ duration: 0.4 }}
+            className="absolute inset-0 w-full h-full"
           >
             <img
               src={activeIndex === -1 ? HEADER_IMAGE : timelineEvents[activeIndex]?.image}
               alt={activeIndex === -1 ? "Journey Intro" : timelineEvents[activeIndex]?.title}
-              className="w-full h-full object-cover opacity-50"
+              className="w-full h-full object-cover object-center opacity-50"
+              style={{ objectPosition: 'center' }}
               referrerPolicy="no-referrer"
             />
             <div className={`absolute inset-0 ${theme === 'dark' ? 'bg-black/40' : 'bg-white/50'}`} />
@@ -152,7 +153,7 @@ export const Timeline: React.FC = () => {
           <div className="flex-1 relative">
             {/* Sticky Content Display Area */}
             <div className="sticky top-0 h-screen flex flex-col justify-center pointer-events-none z-10">
-              <div className={`max-w-2xl mx-auto md:mx-0 text-center md:text-left pointer-events-auto transition-opacity duration-300 ${activeIndex === -1 ? 'opacity-0' : 'opacity-100'}`}>
+            <div className={`max-w-2xl mx-auto md:mx-0 text-center md:text-left pointer-events-auto transition-opacity duration-300 ${activeIndex === -1 ? 'opacity-0' : 'opacity-100'}`}>
                 <span className={`text-[10px] font-mono uppercase tracking-[0.6em] mb-6 block transition-colors duration-500 ${theme === 'dark' ? 'text-white/50' : 'text-black/40'}`}>
                   {timelineEvents[activeIndex]?.year}
                 </span>

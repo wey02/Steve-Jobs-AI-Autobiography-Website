@@ -101,12 +101,13 @@ export const MilestoneDetail: React.FC = () => {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.2 }}
-            className="relative aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl"
+            className="relative aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl h-[60vh] md:h-auto"
           >
             <img 
               src={milestone.image} 
               alt={milestone.title}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover object-center"
+              style={{ objectPosition: 'center' }}
               referrerPolicy="no-referrer"
             />
             <div className={`absolute inset-0 ${theme === 'dark' ? 'bg-gradient-to-t from-black/60 to-transparent' : 'bg-gradient-to-t from-white/40 to-transparent'}`} />

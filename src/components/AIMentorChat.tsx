@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { useAudio } from './AudioProvider';
 import { useTheme } from './ThemeProvider';
 import { GoogleGenAI } from "@google/genai";
+import ReactMarkdown from 'react-markdown';
 import { Send, User, Bot, Sparkles, Loader2, Mic } from 'lucide-react';
 import transcripts from '../data/transcripts.json';
 import timelineEvents from '../data/timeline_events.json';
@@ -18,12 +19,26 @@ interface Message {
 export const AIMentorChat: React.FC = () => {
   const { playSFX } = useAudio();
   const { theme } = useTheme();
-  const [messages, setMessages] = useState<Message[]>([
-    { role: 'assistant', content: "Hello. I am your AI Mentor, trained on the life and philosophy of Steve Jobs. How can I help you think differently today?" }
-  ]);
+  const [messages, setMessages] = useState<Message[]>(() => {
+    const saved = sessionStorage.getItem('ai_mentor_messages');
+    if (saved) {
+      try {
+        return JSON.parse(saved);
+      } catch (e) {
+        console.error("Failed to parse saved messages", e);
+      }
+    }
+    return [
+      { role: 'assistant', content: "Hello. I am your AI Mentor, trained on the life and philosophy of Steve Jobs. How can I help you think differently today?" }
+    ];
+  });
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    sessionStorage.setItem('ai_mentor_messages', JSON.stringify(messages));
+  }, [messages]);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -61,13 +76,19 @@ export const AIMentorChat: React.FC = () => {
         - Use short, impactful sentences.
         - Reference specific events from the timeline or quotes when relevant.
         - If you don't know something, admit it, but frame it in a way that encourages the user to find their own path.
+        - CRITICAL: Structure your responses for maximum readability. 
+        - Use bulleted lists for multiple points or items.
+        - Use numbered lists for step-by-step instructions or sequences.
+        - For narrative or storytelling responses, provide a clear bolded heading (using ###) followed by the explanation.
+        - Use bold text for key concepts or emphasis.
+        - Break long paragraphs into smaller, digestible chunks.
       `;
 
       const response = await ai.models.generateContent({
         model: "gemini-3-flash-preview",
         contents: [
           { role: 'user', parts: [{ text: context }] },
-          { role: 'model', parts: [{ text: "I understand. I am ready to mentor as Steve Jobs." }] },
+          { role: 'model', parts: [{ text: "I understand. I am ready to mentor as Steve Jobs. I will use structured formatting, including lists for steps and bold headings for narrative insights, to ensure clarity and impact." }] },
           ...messages.map(m => ({
             role: m.role === 'user' ? 'user' : 'model',
             parts: [{ text: m.content }]
@@ -95,7 +116,7 @@ export const AIMentorChat: React.FC = () => {
   ];
 
   return (
-    <section id="mentor" className={`py-24 transition-colors duration-500 ${theme === 'dark' ? 'bg-zinc-900 text-white' : 'bg-zinc-100 text-black'}`}>
+    <section id="mentor" className={`py-24 transition-colors duration-500 ${theme === 'dark' ? 'bg-black text-white' : 'bg-black text-black'}`}>
       <div className="container mx-auto px-6 max-w-4xl">
         <div className="text-center mb-16">
           <motion.div
@@ -111,7 +132,7 @@ export const AIMentorChat: React.FC = () => {
           <p className={`transition-colors duration-500 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>Seek guidance from the mind that revolutionized the world.</p>
         </div>
 
-        <div className={`rounded-3xl border overflow-hidden flex flex-col h-[600px] backdrop-blur-xl shadow-2xl transition-colors duration-500 ${theme === 'dark' ? 'bg-black/40 border-white/10' : 'bg-white/40 border-black/10'}`}>
+        <div className={`rounded-3xl border overflow-hidden flex flex-col h-[600px] backdrop-blur-xl shadow-2xl transition-colors duration-500 ${theme === 'dark' ? 'bg-zinc-900/50 border-white/10' : 'bg-white/40 border-black/10'}`}>
           {/* Chat Messages */}
           <div 
             ref={scrollRef}
@@ -128,7 +149,24 @@ export const AIMentorChat: React.FC = () => {
                   {msg.role === 'user' ? <User className="w-5 h-5" /> : <Bot className="w-5 h-5" />}
                 </div>
                 <div className={`max-w-[80%] p-4 rounded-2xl text-sm leading-relaxed transition-colors duration-500 ${msg.role === 'user' ? (theme === 'dark' ? 'bg-zinc-800 text-white rounded-tr-none' : 'bg-zinc-200 text-black rounded-tr-none') : (theme === 'dark' ? 'bg-white/5 text-gray-300 rounded-tl-none' : 'bg-black/5 text-gray-600 rounded-tl-none')}`}>
-                  {msg.content}
+                  {msg.role === 'assistant' ? (
+                    <ReactMarkdown
+                      components={{
+                        h1: ({ children }) => <h1 className={`text-xl font-bold mb-3 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>{children}</h1>,
+                        h2: ({ children }) => <h2 className={`text-lg font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>{children}</h2>,
+                        h3: ({ children }) => <h3 className={`text-base font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>{children}</h3>,
+                        ul: ({ children }) => <ul className="list-disc ml-5 my-3 space-y-1">{children}</ul>,
+                        ol: ({ children }) => <ol className="list-decimal ml-5 my-3 space-y-1">{children}</ol>,
+                        li: ({ children }) => <li className="mb-1">{children}</li>,
+                        p: ({ children }) => <p className="mb-3 last:mb-0 leading-relaxed">{children}</p>,
+                        strong: ({ children }) => <strong className={`font-bold ${theme === 'dark' ? 'text-white' : 'text-black'}`}>{children}</strong>,
+                      }}
+                    >
+                      {msg.content}
+                    </ReactMarkdown>
+                  ) : (
+                    msg.content
+                  )}
                 </div>
               </motion.div>
             ))}

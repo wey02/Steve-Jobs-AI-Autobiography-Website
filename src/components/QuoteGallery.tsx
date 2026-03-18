@@ -46,7 +46,7 @@ export const QuoteGallery: React.FC = () => {
   }, [filter, currentIndex]);
 
   return (
-    <section id="wisdom" className={`py-24 transition-colors duration-500 ${theme === 'dark' ? 'bg-zinc-900 text-white' : 'bg-zinc-100 text-black'}`}>
+    <section id="wisdom" className={`py-24 transition-colors duration-500 ${theme === 'dark' ? 'bg-black text-white' : 'bg-white text-black'}`}>
       <div className="container mx-auto px-6">
         <div className="flex flex-col items-center text-center mb-24 gap-12">
           <div className="max-w-2xl">
