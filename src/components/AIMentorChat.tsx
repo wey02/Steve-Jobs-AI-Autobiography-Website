@@ -4,7 +4,7 @@ import { useAudio } from './AudioProvider';
 import { useTheme } from './ThemeProvider';
 import { GoogleGenAI } from "@google/genai";
 import ReactMarkdown from 'react-markdown';
-import { Send, User, Bot, Sparkles, Loader2, Mic } from 'lucide-react';
+import { Send, User, Bot, Sparkles, Loader2, Mic, Maximize2, Minimize2, RotateCcw } from 'lucide-react';
 import transcripts from '../data/transcripts.json';
 import timelineEvents from '../data/timeline_events.json';
 import quotes from '../data/jobs_quotes.json';
@@ -19,6 +19,9 @@ interface Message {
 export const AIMentorChat: React.FC = () => {
   const { playSFX } = useAudio();
   const { theme } = useTheme();
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [isRecording, setIsRecording] = useState(false);
+  const recognitionRef = useRef<any>(null);
   const [messages, setMessages] = useState<Message[]>(() => {
     const saved = sessionStorage.getItem('ai_mentor_messages');
     if (saved) {
@@ -37,6 +40,53 @@ export const AIMentorChat: React.FC = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Initialize Speech Recognition
+    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    if (SpeechRecognition) {
+      recognitionRef.current = new SpeechRecognition();
+      recognitionRef.current.continuous = false;
+      recognitionRef.current.interimResults = false;
+      recognitionRef.current.lang = 'en-US';
+
+      recognitionRef.current.onresult = (event: any) => {
+        const transcript = event.results[0][0].transcript;
+        setInput(prev => prev + (prev ? ' ' : '') + transcript);
+        setIsRecording(false);
+      };
+
+      recognitionRef.current.onerror = (event: any) => {
+        console.error('Speech recognition error:', event.error);
+        setIsRecording(false);
+      };
+
+      recognitionRef.current.onend = () => {
+        setIsRecording(false);
+      };
+    }
+  }, []);
+
+  const toggleSpeechRecognition = () => {
+    if (!recognitionRef.current) {
+      alert("Speech recognition is not supported in your browser.");
+      return;
+    }
+
+    if (isRecording) {
+      recognitionRef.current.stop();
+      playSFX('click');
+    } else {
+      try {
+        recognitionRef.current.start();
+        setIsRecording(true);
+        playSFX('click');
+      } catch (error) {
+        console.error('Speech recognition start error:', error);
+        setIsRecording(false);
+      }
+    }
+  };
+
+  useEffect(() => {
     sessionStorage.setItem('ai_mentor_messages', JSON.stringify(messages));
   }, [messages]);
 
@@ -44,12 +94,24 @@ export const AIMentorChat: React.FC = () => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
-  }, [messages]);
+  }, [messages, isExpanded]);
 
-  const handleSend = async () => {
-    if (!input.trim() || isLoading) return;
+  useEffect(() => {
+    if (isExpanded) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isExpanded]);
 
-    const userMessage = input.trim();
+  const handleSend = async (overrideInput?: string) => {
+    const messageToSend = overrideInput || input;
+    if (!messageToSend.trim() || isLoading) return;
+
+    const userMessage = messageToSend.trim();
     setInput('');
     setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
     setIsLoading(true);
@@ -108,6 +170,14 @@ export const AIMentorChat: React.FC = () => {
     }
   };
 
+  const clearChat = () => {
+    setMessages([
+      { role: 'assistant', content: "Hello. I am your AI Mentor, trained on the life and philosophy of Steve Jobs. How can I help you think differently today?" }
+    ]);
+    sessionStorage.removeItem('ai_mentor_messages');
+    playSFX('click');
+  };
+
   const suggestedQuestions = [
     "How do I deal with failure?",
     "What is your philosophy on design?",
@@ -117,22 +187,58 @@ export const AIMentorChat: React.FC = () => {
 
   return (
     <section id="mentor" className={`py-24 transition-colors duration-500 ${theme === 'dark' ? 'bg-black text-white' : 'bg-black text-black'}`}>
-      <div className="container mx-auto px-6 max-w-4xl">
-        <div className="text-center mb-16">
-          <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
-            viewport={{ once: true }}
-            className={`inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6 border transition-colors duration-500 ${theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-black/5 border-black/10'}`}
-          >
-            <Sparkles className={`w-4 h-4 transition-colors duration-500 ${theme === 'dark' ? 'text-white/60' : 'text-black/60'}`} />
-            <span className={`text-xs font-mono uppercase tracking-widest transition-colors duration-500 ${theme === 'dark' ? 'text-white/60' : 'text-black/60'}`}>AI Mentor</span>
-          </motion.div>
-          <h2 className="text-4xl font-light tracking-tight mb-4">Ask the Mentor</h2>
-          <p className={`transition-colors duration-500 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>Seek guidance from the mind that revolutionized the world.</p>
-        </div>
+      <div className={`container mx-auto px-6 transition-all duration-500 ${isExpanded ? 'max-w-none px-0' : 'max-w-4xl'}`}>
+        {!isExpanded && (
+          <div className="text-center mb-16">
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              whileInView={{ scale: 1, opacity: 1 }}
+              viewport={{ once: true }}
+              className={`inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6 border transition-colors duration-500 ${theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-black/5 border-black/10'}`}
+            >
+              <Sparkles className={`w-4 h-4 transition-colors duration-500 ${theme === 'dark' ? 'text-white/60' : 'text-black/60'}`} />
+              <span className={`text-xs font-mono uppercase tracking-widest transition-colors duration-500 ${theme === 'dark' ? 'text-white/60' : 'text-black/60'}`}>AI Mentor</span>
+            </motion.div>
+            <h2 className="text-4xl font-light tracking-tight mb-4">Ask the Mentor</h2>
+            <p className={`transition-colors duration-500 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>Seek guidance from the mind that revolutionized the world.</p>
+          </div>
+        )}
 
-        <div className={`rounded-3xl border overflow-hidden flex flex-col h-[600px] backdrop-blur-xl shadow-2xl transition-colors duration-500 ${theme === 'dark' ? 'bg-zinc-900/50 border-white/10' : 'bg-white/40 border-black/10'}`}>
+        <div className={`transition-all duration-500 ease-in-out overflow-hidden flex flex-col backdrop-blur-xl shadow-2xl ${
+          isExpanded 
+            ? 'fixed inset-0 z-[100] h-screen w-screen rounded-none' 
+            : 'rounded-3xl border h-[600px] relative'
+        } ${theme === 'dark' ? 'bg-zinc-900/90 border-white/10' : 'bg-white/90 border-black/10'}`}>
+          
+          {/* Header with Expand Toggle */}
+          <div className={`p-4 border-b flex items-center justify-between transition-colors duration-500 ${theme === 'dark' ? 'border-white/10' : 'border-black/10'}`}>
+            <div className="flex items-center gap-3">
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-500 ${theme === 'dark' ? 'bg-white text-black' : 'bg-black text-white'}`}>
+                <Bot className="w-4 h-4" />
+              </div>
+              <span className="text-sm font-medium">Steve Jobs AI</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <button 
+                onClick={clearChat}
+                className={`p-2 rounded-lg transition-all ${theme === 'dark' ? 'hover:bg-white/10 text-white/60 hover:text-white' : 'hover:bg-black/10 text-black/60 hover:text-black'}`}
+                title="Reset Conversation"
+              >
+                <RotateCcw className="w-4 h-4" />
+              </button>
+              <button 
+                onClick={() => {
+                  setIsExpanded(!isExpanded);
+                  playSFX('click');
+                }}
+                className={`p-2 rounded-lg transition-all ${theme === 'dark' ? 'hover:bg-white/10 text-white/60 hover:text-white' : 'hover:bg-black/10 text-black/60 hover:text-black'}`}
+                title={isExpanded ? "Collapse" : "Expand"}
+              >
+                {isExpanded ? <Minimize2 className="w-5 h-5" /> : <Maximize2 className="w-5 h-5" />}
+              </button>
+            </div>
+          </div>
+
           {/* Chat Messages */}
           <div 
             ref={scrollRef}
@@ -185,18 +291,27 @@ export const AIMentorChat: React.FC = () => {
 
           {/* Input Area */}
           <div className={`p-6 border-t transition-colors duration-500 ${theme === 'dark' ? 'bg-zinc-900/50 border-white/10' : 'bg-zinc-100/50 border-black/10'}`}>
-            <div className="flex flex-wrap gap-2 mb-4">
-              {suggestedQuestions.map((q, i) => (
-                <button
-                  key={i}
-                  onClick={() => { setInput(q); playSFX('click'); }}
-                  className={`text-[10px] font-mono uppercase tracking-widest px-3 py-1.5 rounded-full border transition-all ${theme === 'dark' ? 'bg-white/5 border-white/5 text-white/40 hover:text-white hover:bg-white/10' : 'bg-black/5 border-black/5 text-black/40 hover:text-black hover:bg-black/10'}`}
+            <AnimatePresence>
+              {messages.length === 1 && !isLoading && (
+                <motion.div 
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  exit={{ opacity: 0, height: 0 }}
+                  className="flex flex-wrap gap-2 mb-4 overflow-hidden"
                 >
-                  {q}
-                </button>
-              ))}
-            </div>
-            <div className="relative">
+                  {suggestedQuestions.map((q, i) => (
+                    <button
+                      key={i}
+                      onClick={() => handleSend(q)}
+                      className={`text-[10px] font-mono uppercase tracking-widest px-3 py-1.5 rounded-full border transition-all ${theme === 'dark' ? 'bg-white/5 border-white/5 text-white/40 hover:text-white hover:bg-white/10' : 'bg-black/5 border-black/5 text-black/40 hover:text-black hover:bg-black/10'}`}
+                    >
+                      {q}
+                    </button>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+            <div className="relative max-w-5xl mx-auto w-full">
               <input 
                 type="text" 
                 value={input}
@@ -207,13 +322,26 @@ export const AIMentorChat: React.FC = () => {
               />
               <div className="absolute right-2 top-1/2 -translate-y-1/2 flex gap-2">
                 <button 
-                  className={`p-2 transition-all ${theme === 'dark' ? 'text-white/40 hover:text-white' : 'text-black/40 hover:text-black'}`}
-                  onClick={() => playSFX('click')}
+                  className={`p-2 transition-all relative ${
+                    isRecording 
+                      ? 'text-red-500' 
+                      : (theme === 'dark' ? 'text-white/40 hover:text-white' : 'text-black/40 hover:text-black')
+                  }`}
+                  onClick={toggleSpeechRecognition}
+                  title={isRecording ? "Stop Recording" : "Start Voice Input"}
                 >
-                  <Mic className="w-5 h-5" />
+                  {isRecording && (
+                    <motion.span 
+                      initial={{ scale: 0.8, opacity: 0.5 }}
+                      animate={{ scale: 1.5, opacity: 0 }}
+                      transition={{ repeat: Infinity, duration: 1.5 }}
+                      className="absolute inset-0 bg-red-500/20 rounded-full"
+                    />
+                  )}
+                  <Mic className={`w-5 h-5 ${isRecording ? 'animate-pulse' : ''}`} />
                 </button>
                 <button 
-                  onClick={handleSend}
+                  onClick={() => handleSend()}
                   disabled={!input.trim() || isLoading}
                   className={`p-2 rounded-xl transition-all disabled:opacity-50 ${theme === 'dark' ? 'bg-white text-black hover:bg-gray-200' : 'bg-black text-white hover:bg-gray-800'}`}
                 >
@@ -227,3 +355,4 @@ export const AIMentorChat: React.FC = () => {
     </section>
   );
 };
+

@@ -9,6 +9,13 @@ export const Documentary: React.FC = () => {
   const { playSFX } = useAudio();
   const { theme } = useTheme();
   const [selectedDoc, setSelectedDoc] = useState<typeof documentaries[0] | null>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const getYouTubeId = (url: string) => {
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    const match = url.match(regExp);
+    return (match && match[2].length === 11) ? match[2] : null;
+  };
 
   return (
     <section id="documentary" className={`py-24 transition-colors duration-500 ${theme === 'dark' ? 'bg-black text-white' : 'bg-white text-black'}`}>
@@ -29,7 +36,7 @@ export const Documentary: React.FC = () => {
             transition={{ delay: 0.2 }}
             className={`max-w-2xl mx-auto transition-colors duration-500 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}
           >
-            A documentary exploring the complexities, brilliance, and impact of Steve Jobs’ extraordinary life.
+            A documentaries exploring the complexities, brilliance, and impact of Steve Jobs’ extraordinary life.
           </motion.p>
         </div>
 
@@ -44,6 +51,7 @@ export const Documentary: React.FC = () => {
               className="group cursor-pointer"
               onClick={() => {
                 setSelectedDoc(doc);
+                setIsPlaying(false);
                 playSFX('click');
               }}
             >
@@ -87,7 +95,10 @@ export const Documentary: React.FC = () => {
               className={`max-w-5xl w-full h-[80vh] rounded-3xl overflow-hidden flex flex-col relative transition-colors duration-500 ${theme === 'dark' ? 'bg-zinc-900' : 'bg-zinc-100'}`}
             >
               <button 
-                onClick={() => setSelectedDoc(null)}
+                onClick={() => {
+                  setSelectedDoc(null);
+                  setIsPlaying(false);
+                }}
                 className="absolute top-6 right-6 z-10 p-2 bg-black/50 hover:bg-black/80 rounded-full transition-all"
               >
                 <X className="w-6 h-6 text-white" />
@@ -95,18 +106,39 @@ export const Documentary: React.FC = () => {
 
               <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
                 <div className="md:w-2/3 bg-black flex items-center justify-center relative">
-                  <img 
-                    src={selectedDoc.thumbnail} 
-                    alt={selectedDoc.title} 
-                    className="w-full h-full object-cover opacity-50"
-                    referrerPolicy="no-referrer"
-                  />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-center">
-                      <Play className="w-20 h-20 text-white mb-4 mx-auto opacity-80" />
-                      <p className="text-white/60 text-sm font-mono uppercase tracking-widest">Preview Mode Only</p>
-                    </div>
-                  </div>
+                  {!isPlaying ? (
+                    <>
+                      <img 
+                        src={selectedDoc.thumbnail} 
+                        alt={selectedDoc.title} 
+                        className="w-full h-full object-cover opacity-50"
+                        referrerPolicy="no-referrer"
+                      />
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <button 
+                          onClick={() => {
+                            setIsPlaying(true);
+                            playSFX('notification');
+                          }}
+                          className="group flex flex-col items-center gap-4"
+                        >
+                          <div className="w-20 h-20 rounded-full bg-white flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform">
+                            <Play className="w-8 h-8 text-black fill-current" />
+                          </div>
+                          <p className="text-white/60 text-sm font-mono uppercase tracking-widest">Click to Play Documentary</p>
+                        </button>
+                      </div>
+                    </>
+                  ) : (
+                    <iframe
+                      src={`https://www.youtube.com/embed/${getYouTubeId(selectedDoc.video)}?autoplay=1`}
+                      title={selectedDoc.title}
+                      className="w-full h-full"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    ></iframe>
+                  )}
                 </div>
                 <div className={`md:w-1/3 p-12 flex flex-col overflow-hidden transition-colors duration-500 ${theme === 'dark' ? 'bg-zinc-900' : 'bg-zinc-100'}`}>
                   <div className={`flex items-center gap-2 mb-4 transition-colors duration-500 ${theme === 'dark' ? 'text-white/40' : 'text-black/40'}`}>

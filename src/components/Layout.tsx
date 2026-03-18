@@ -29,7 +29,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
             </svg>
           </div>
           <p className={`text-[10px] font-mono uppercase tracking-[0.5em] mb-4 ${theme === 'dark' ? 'text-white/20' : 'text-black/20'}`}>Think Different</p>
-          <p className={`text-[8px] font-mono uppercase tracking-[0.2em] ${theme === 'dark' ? 'text-white/10' : 'text-black/10'}`}>© 2026 AI Studio Build. All Rights Reserved.</p>
+          <p className={`text-[8px] font-mono uppercase tracking-[0.2em] ${theme === 'dark' ? 'text-white/10' : 'text-black/10'}`}>© 2026 Dadi Coach. All Rights Reserved.</p>
         </div>
       </footer>
     </div>

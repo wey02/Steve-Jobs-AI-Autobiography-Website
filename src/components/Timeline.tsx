@@ -160,7 +160,7 @@ export const Timeline: React.FC = () => {
                 <h2 className={`text-4xl md:text-6xl lg:text-7xl font-light tracking-tighter leading-tight mb-8 transition-colors duration-500 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
                   {timelineEvents[activeIndex]?.title}
                 </h2>
-                <p className={`text-lg md:text-xl font-light mb-10 leading-relaxed tracking-wide transition-colors duration-500 ${theme === 'dark' ? 'text-white/60' : 'text-gray-600'}`}>
+                <p className={`text-lg md:text-xl font-light mb-10 leading-relaxed tracking-wide transition-colors duration-500 ${theme === 'dark' ? 'text-white/80' : 'text-gray-200'}`}>
                   {timelineEvents[activeIndex]?.description}
                 </p>
                 <Link
