@@ -30,7 +30,7 @@ export const Story1974: React.FC = () => {
           </p>
         </>
       ),
-      image: "https://picsum.photos/seed/jobs-searching/1200/800",
+      image: "https://static.scientificamerican.com/sciam/cache/file/E5EEDC57-1AD1-428B-9A937538BD8526FE_source.jpg?w=600",
       accent: "from-blue-500/20 to-transparent"
     },
     {
@@ -57,7 +57,7 @@ export const Story1974: React.FC = () => {
           </div>
         </>
       ),
-      image: "https://picsum.photos/seed/calligraphy-art/800/1000",
+      image: "https://tse1.mm.bing.net/th/id/OIP.XX-bYYfLPGChCH6gdwal2QHaJk?rs=1&pid=ImgDetMain&o=7&rm=3",
       reverse: true
     },
     {
@@ -81,7 +81,7 @@ export const Story1974: React.FC = () => {
           </p>
         </>
       ),
-      image: "https://picsum.photos/seed/atari-tech/1200/600",
+      image: "https://tse3.mm.bing.net/th/id/OIP.P0-Y4niqBvFy0Dl-ClKUYAHaDH?rs=1&pid=ImgDetMain&o=7&rm=3",
       fullWidth: true
     },
     {
@@ -112,7 +112,7 @@ export const Story1974: React.FC = () => {
           </div>
         </>
       ),
-      image: "https://picsum.photos/seed/india-spiritual/800/1000"
+      image: "https://tse4.mm.bing.net/th/id/OIP.BPnaIGTp5BKt5O5cku2mEwHaFj?rs=1&pid=ImgDetMain&o=7&rm=3"
     },
     {
       id: 'awakening',
@@ -138,7 +138,7 @@ export const Story1974: React.FC = () => {
           </p>
         </>
       ),
-      image: "https://picsum.photos/seed/zen-meditation/1200/800",
+      image: "https://www.oscension.com/wp-content/uploads/2023/12/Young_Steve_Jobs_India-1.jpg",
       reverse: true
     },
     {
@@ -159,7 +159,7 @@ export const Story1974: React.FC = () => {
           </p>
         </>
       ),
-      image: "https://picsum.photos/seed/jobs-woz-garage/1200/600",
+      image: "https://tse4.mm.bing.net/th/id/OIP.eBTQnfHkc8W7I0papNgN4QHaFh?w=819&h=611&rs=1&pid=ImgDetMain&o=7&rm=3",
       fullWidth: true
     },
     {
@@ -194,7 +194,7 @@ export const Story1974: React.FC = () => {
           </p>
         </>
       ),
-      image: "https://picsum.photos/seed/apple-minimal/800/1000"
+      image: "https://storage.googleapis.com/webdesignledger.pub.network/WDL/maxresdefault.jpg"
     }
   ];
 
@@ -213,17 +213,6 @@ export const Story1974: React.FC = () => {
             
             {/* Content Side */}
             <div className={`${section.reverse ? 'lg:order-2' : ''} ${section.fullWidth ? 'max-w-4xl mx-auto text-center px-6' : ''}`}>
-              <div className={`inline-flex items-center gap-3 px-4 py-2 rounded-full mb-8 border ${theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-black/5 border-black/10'}`}>
-                {section.icon}
-                <span className="text-xs font-mono uppercase tracking-widest">{section.title}</span>
-              </div>
-              
-              {section.subtitle && (
-                <h2 className="text-4xl md:text-5xl font-light tracking-tight mb-8">
-                  {section.subtitle}
-                </h2>
-              )}
-              
               <div className={`prose prose-lg ${theme === 'dark' ? 'prose-invert' : ''} max-w-none`}>
                 {section.content}
               </div>
@@ -256,10 +245,6 @@ export const Story1974: React.FC = () => {
         viewport={{ once: true }}
         className="max-w-4xl mx-auto px-6 py-20 border-t border-white/10"
       >
-        <div className="flex items-center gap-3 mb-8">
-          <BookOpen className="w-5 h-5 opacity-50" />
-          <h3 className="text-sm font-mono uppercase tracking-widest opacity-50">References</h3>
-        </div>
         <ul className="space-y-4 text-sm opacity-50 font-light">
           <li>Isaacson, Walter. <em>Steve Jobs</em>. Simon & Schuster, 2011.</li>
           <li>Schlender, Brent & Tetzeli, Rick. <em>Becoming Steve Jobs</em>. Crown Business, 2015.</li>

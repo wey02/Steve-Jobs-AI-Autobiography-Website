@@ -1,6 +1,6 @@
 import React from 'react';
 import { Hero } from '../components/Hero';
-import { AnimatedQuestion, LegacyIntro, PhilosophySection, ThemeSection, CTASection } from '../components/HomeSections';
+import { JourneySection, WisdomTeaser, DocumentaryTeaser, ConversationTeaser, SemanticSearchTeaser } from '../components/HomeSections';
 
 /**
  * Home Page
@@ -10,11 +10,11 @@ export const Home: React.FC = () => {
   return (
     <>
       <Hero />
-      <AnimatedQuestion />
-      <LegacyIntro />
-      <PhilosophySection />
-      <ThemeSection />
-      <CTASection />
+      <JourneySection />
+      <WisdomTeaser />
+      <DocumentaryTeaser />
+      <ConversationTeaser />
+      <SemanticSearchTeaser />
     </>
   );
 };

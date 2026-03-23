@@ -14,6 +14,19 @@ export const Navbar: React.FC<NavbarProps> = ({ onSearchClick }) => {
   const { theme, toggleTheme } = useTheme();
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isHighlighted, setIsHighlighted] = useState(false);
+
+  // Listen for highlight-search event
+  useEffect(() => {
+    const handleHighlight = () => {
+      setIsHighlighted(true);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      setTimeout(() => setIsHighlighted(false), 3000); // Highlight for 3 seconds
+    };
+
+    window.addEventListener('highlight-search', handleHighlight);
+    return () => window.removeEventListener('highlight-search', handleHighlight);
+  }, []);
 
   const navItems = [
     { name: 'Home', path: '/' },
@@ -95,13 +108,29 @@ export const Navbar: React.FC<NavbarProps> = ({ onSearchClick }) => {
             </button>
 
             {/* Search Bar (Trigger) - Desktop & Mobile */}
-            <button 
+            <motion.button 
               onClick={onSearchClick}
-              className="flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full border transition-all group bg-white/5 border-white/10 hover:bg-white/10"
+              animate={isHighlighted ? {
+                scale: [1, 1.1, 1],
+                boxShadow: [
+                  "0 0 0 rgba(16, 185, 129, 0)",
+                  "0 0 20px rgba(16, 185, 129, 0.5)",
+                  "0 0 0 rgba(16, 185, 129, 0)"
+                ],
+                borderColor: [
+                  "rgba(255, 255, 255, 0.1)",
+                  "rgba(16, 185, 129, 0.8)",
+                  "rgba(255, 255, 255, 0.1)"
+                ]
+              } : {}}
+              transition={{ duration: 1, repeat: isHighlighted ? 3 : 0 }}
+              className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full border transition-all group ${
+                isHighlighted ? 'bg-emerald-500/10 border-emerald-500/50' : 'bg-white/5 border-white/10 hover:bg-white/10'
+              }`}
             >
-              <Search className="w-4 h-4 transition-transform group-hover:scale-110 text-white/60" />
-              <span className="text-[10px] font-mono uppercase tracking-widest hidden sm:inline text-white/40">Search</span>
-            </button>
+              <Search className={`w-4 h-4 transition-transform group-hover:scale-110 ${isHighlighted ? 'text-emerald-500' : 'text-white/60'}`} />
+              <span className={`text-[10px] font-mono uppercase tracking-widest hidden sm:inline ${isHighlighted ? 'text-emerald-500' : 'text-white/40'}`}>Search</span>
+            </motion.button>
 
             {/* Hamburger Menu Toggle - Mobile Only */}
             <button

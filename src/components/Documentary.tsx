@@ -18,7 +18,7 @@ export const Documentary: React.FC = () => {
   };
 
   return (
-    <section id="documentary" className={`py-24 transition-colors duration-500 ${theme === 'dark' ? 'bg-black text-white' : 'bg-white text-black'}`}>
+    <section id="documentary" className={`pt-8 pb-24 transition-colors duration-500 ${theme === 'dark' ? 'bg-black text-white' : 'bg-white text-black'}`}>
       <div className="container mx-auto px-6">
         <div className="mb-16 text-center">
           <motion.h2 

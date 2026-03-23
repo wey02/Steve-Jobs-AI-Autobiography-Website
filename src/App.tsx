@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AudioProvider } from './components/AudioProvider';
 import { ThemeProvider } from './components/ThemeProvider';
 import { Layout } from './components/Layout';
+import { ScrollToTop } from './components/ScrollToTop';
 
 // Pages
 import { Home } from './pages/Home';
@@ -21,6 +22,7 @@ export default function App() {
     <ThemeProvider>
       <AudioProvider>
         <Router>
+          <ScrollToTop />
           <Layout>
             <Routes>
               {/* Home Page: Intact with all sections */}

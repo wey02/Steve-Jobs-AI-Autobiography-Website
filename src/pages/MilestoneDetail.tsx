@@ -4,6 +4,7 @@ import { motion } from 'motion/react';
 import { ArrowLeft, ExternalLink } from 'lucide-react';
 import { useTheme } from '../components/ThemeProvider';
 import { Story1974 } from '../components/Story1974';
+import { Story1976 } from '../components/Story1976';
 import timelineEvents from '../data/timeline_events.json';
 
 export const MilestoneDetail: React.FC = () => {
@@ -47,13 +48,13 @@ export const MilestoneDetail: React.FC = () => {
   return (
     <div 
       ref={containerRef}
-      className={`min-h-screen pt-32 pb-20 transition-colors duration-500 ${theme === 'dark' ? 'bg-black text-white' : 'bg-white text-black'}`}
+      className={`min-h-screen pt-8 pb-20 transition-colors duration-500 ${theme === 'dark' ? 'bg-black text-white' : 'bg-white text-black'}`}
     >
       <div className="max-w-6xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          className="mb-12"
+          className="mb-6"
         >
           <Link 
             to={`/journey#${milestone.year}`} 
@@ -66,6 +67,8 @@ export const MilestoneDetail: React.FC = () => {
 
         {year === '1974' ? (
           <Story1974 />
+        ) : year === '1976' ? (
+          <Story1976 />
         ) : (
           <div 
             ref={heroRef}
